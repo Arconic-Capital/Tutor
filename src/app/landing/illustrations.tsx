@@ -1,6 +1,10 @@
 /* Isometric technical illustrations — Baseten-style line art in Cram's palette.
-   Thin ink outlines, selective sky fills, dashed wireframes + connectors,
-   mono-label tags, floating diamond confetti. No people, no ground blobs. */
+   Rules learned the hard way:
+   - CSS transform animations REPLACE the SVG transform attribute, so any animated
+     element is wrapped: outer <g> positions, inner <g> animates from origin.
+   - Every connector starts and ends on a real anchor point of a shape. */
+
+import type { ReactNode } from "react";
 
 const STROKE = "#2b2119";
 const BLUE = "#2777c2";
@@ -12,21 +16,30 @@ const MONO = "ui-monospace, 'SF Mono', Menlo, monospace";
 const ISO_X = 0.866;
 const ISO_Y = 0.5;
 
-/** Isometric box. Top-back vertex at (0,0); a = length along right axis, b = along left axis, d = height. */
+/** Position + animate: outer g places, inner g runs the float animation from origin. */
+function F({ x, y, v, children }: { x: number; y: number; v: "a" | "b" | "c"; children: ReactNode }) {
+  return (
+    <g transform={`translate(${x} ${y})`}>
+      <g className={`illo-float-${v}`}>{children}</g>
+    </g>
+  );
+}
+
+/** Isometric box. North (top) vertex of the top face at (x,y). For a=b, the
+    front-bottom vertex is at (x, y + a + d) — use it to anchor connectors. */
 function IsoBox({
-  x, y, a, b, d, top = "#fff", right = "#fff", left = "#fff",
-  dashed = false, stroke = STROKE, cls = "",
+  x = 0, y = 0, a, b, d, top = "#fff", right = "#fff", left = "#fff", dashed = false,
 }: {
-  x: number; y: number; a: number; b: number; d: number;
-  top?: string; right?: string; left?: string; dashed?: boolean; stroke?: string; cls?: string;
+  x?: number; y?: number; a: number; b: number; d: number;
+  top?: string; right?: string; left?: string; dashed?: boolean;
 }) {
   const ax = a * ISO_X, ay = a * ISO_Y, bx = b * ISO_X, by = b * ISO_Y;
   const common = {
-    stroke, strokeWidth: 1.4, strokeLinejoin: "round" as const,
+    stroke: STROKE, strokeWidth: 1.4, strokeLinejoin: "round" as const,
     strokeDasharray: dashed ? "3 3" : undefined,
   };
   return (
-    <g transform={`translate(${x} ${y})`} className={cls}>
+    <g transform={`translate(${x} ${y})`}>
       <path d={`M0 0 l${ax} ${ay} l${-bx} ${by} l${-ax} ${-ay} Z`} fill={dashed ? "none" : top} {...common} />
       <path d={`M${ax} ${ay} l0 ${d} l${-bx} ${by} l0 ${-d} Z`} fill={dashed ? "none" : right} {...common} />
       <path d={`M${ax - bx} ${ay + by} l0 ${d} l${-ax} ${-ay} l0 ${-d} Z`} fill={dashed ? "none" : left} {...common} />
@@ -34,18 +47,18 @@ function IsoBox({
   );
 }
 
-/** Cylinder / disc. Centre of top ellipse at (x,y). */
-function Disc({ x, y, r, d, top = SKY, side = "#fff", cls = "" }: { x: number; y: number; r: number; d: number; top?: string; side?: string; cls?: string }) {
+/** Cylinder disc. Centre of top ellipse at (x,y). */
+function Disc({ x = 0, y = 0, r, d, top = SKY, side = "#fff" }: { x?: number; y?: number; r: number; d: number; top?: string; side?: string }) {
   const ry = r * 0.5;
   return (
-    <g transform={`translate(${x} ${y})`} className={cls}>
+    <g transform={`translate(${x} ${y})`}>
       <path d={`M${-r} 0 L${-r} ${d} A${r} ${ry} 0 0 0 ${r} ${d} L${r} 0`} fill={side} stroke={STROKE} strokeWidth="1.4" />
       <ellipse rx={r} ry={ry} fill={top} stroke={STROKE} strokeWidth="1.4" />
     </g>
   );
 }
 
-/** Mono-label tag, Baseten style. */
+/** Mono-label tag. Anchored by its top-left corner; w wide, 18 tall. */
 function Tag({ x, y, text, w, fill = PALE }: { x: number; y: number; text: string; w: number; fill?: string }) {
   return (
     <g transform={`translate(${x} ${y})`}>
@@ -55,83 +68,84 @@ function Tag({ x, y, text, w, fill = PALE }: { x: number; y: number; text: strin
   );
 }
 
-/** Iso diamond confetti. */
-function Dia({ x, y, fill = SKY, s = 1, cls = "" }: { x: number; y: number; fill?: string; s?: number; cls?: string }) {
-  return <path transform={`translate(${x} ${y}) scale(${s})`} d="M0 -3.5 L6 0 L0 3.5 L-6 0 Z" fill={fill} className={cls} />;
+function Dia({ fill = SKY, s = 1 }: { fill?: string; s?: number }) {
+  return <path transform={`scale(${s})`} d="M0 -3.5 L6 0 L0 3.5 L-6 0 Z" fill={fill} />;
 }
 
-function Connector({ d, cls = "march" }: { d: string; cls?: string }) {
-  return <path d={d} fill="none" stroke={STROKE} strokeWidth="1.1" strokeDasharray="2 5" strokeLinecap="round" className={cls} />;
+function Connector({ d }: { d: string }) {
+  return <path d={d} fill="none" stroke={STROKE} strokeWidth="1.1" strokeDasharray="2 5" strokeLinecap="round" className="march" />;
 }
 
-/* ── WHY: the shared repository — central stacked discs fed by cubes ── */
+/* ── WHY: the shared repository, fed by the cohort ── */
 export function IlloPodiumRace() {
   return (
     <svg viewBox="0 0 420 320" className="illo" role="img" aria-label="A shared knowledge base fed by notes, trials and essays">
-      {/* confetti */}
-      <Dia x={64} y={54} cls="illo-float-a" />
-      <Dia x={330} y={38} fill={TAN} cls="illo-float-b" />
-      <Dia x={388} y={150} cls="illo-float-c" />
-      <Dia x={36} y={190} fill={TAN} s={0.8} cls="illo-float-b" />
-      {/* the repository: two stacked discs */}
-      <Disc x={210} y={128} r={64} d={26} top={SKY} cls="illo-float-b" />
-      <Disc x={210} y={176} r={64} d={26} top={PALE} />
-      <Tag x={152} y={64} w={116} text="SHARED REPOSITORY" />
-      <Connector d="M210 82 L210 96" />
-      {/* feeder cubes */}
-      <IsoBox x={70} y={236} a={26} b={26} d={22} top={SKY} />
-      <IsoBox x={196} y={262} a={26} b={26} d={22} dashed />
-      <IsoBox x={318} y={240} a={26} b={26} d={22} top={BLUE} right={PALE} />
-      <Tag x={40} y={296} w={62} text="NOTES" />
-      <Tag x={168} y={300} w={62} text="TRIALS" />
-      <Tag x={294} y={298} w={62} text="ESSAYS" />
-      <Connector d="M96 238 Q140 214 168 202" />
-      <Connector d="M222 260 Q216 240 212 226" />
-      <Connector d="M320 240 Q286 220 256 206" />
-      {/* count */}
-      <Tag x={300} y={96} w={98} text="153 RESOURCES" fill="#fff" />
+      <F x={58} y={48} v="a"><Dia /></F>
+      <F x={366} y={200} v="b"><Dia fill={TAN} s={0.8} /></F>
+      <F x={30} y={168} v="c"><Dia fill={TAN} s={0.7} /></F>
+      {/* repository: two stacked discs, centred */}
+      <Disc x={210} y={130} r={64} d={24} top={SKY} />
+      <Disc x={210} y={176} r={64} d={24} top={PALE} />
+      {/* title tag, anchored to the top of the cylinder */}
+      <Tag x={152} y={54} w={116} text="SHARED REPOSITORY" />
+      <Connector d="M210 72 L210 96" />
+      {/* count tag, anchored to the right rim */}
+      <Tag x={306} y={122} w={98} text="153 RESOURCES" fill="#fff" />
+      <Connector d="M306 131 L276 133" />
+      {/* feeder cubes with tags directly beneath */}
+      <IsoBox x={78} y={224} a={26} b={26} d={22} top={SKY} />
+      <IsoBox x={204} y={252} a={26} b={26} d={22} dashed />
+      <IsoBox x={330} y={228} a={26} b={26} d={22} top={BLUE} right={PALE} />
+      <Tag x={47} y={288} w={62} text="NOTES" />
+      <Tag x={173} y={314 - 14} w={62} text="TRIALS" />
+      <Tag x={299} y={292} w={62} text="ESSAYS" />
+      {/* connectors: cube north vertex → cylinder lower rim */}
+      <Connector d="M78 222 Q120 204 162 196" />
+      <Connector d="M204 250 Q207 234 209 216" />
+      <Connector d="M330 226 Q296 210 260 198" />
     </svg>
   );
 }
 
-/* ── STEP 1: contribute — cubes flow along a dashed path, get auto-filed ── */
+/* ── STEP 1: contribute — cubes flow into the filed stack ── */
 export function IlloContribute() {
   return (
     <svg viewBox="0 0 320 240" className="illo" role="img" aria-label="Uploads flowing into the repository and filing themselves">
-      <Dia x={48} y={36} cls="illo-float-a" />
-      <Dia x={272} y={52} fill={TAN} s={0.8} cls="illo-float-c" />
-      {/* incoming cubes */}
-      <IsoBox x={38} y={92} a={20} b={20} d={17} dashed cls="illo-float-a" />
-      <IsoBox x={104} y={64} a={20} b={20} d={17} top={SKY} cls="illo-float-b" />
-      <IsoBox x={170} y={40} a={20} b={20} d={17} top={BLUE} right={PALE} cls="illo-float-c" />
-      <Connector d="M60 130 Q130 130 200 138" />
-      <Connector d="M126 102 Q170 116 204 132" />
+      <F x={278} y={36} v="a"><Dia /></F>
+      <F x={30} y={140} v="c"><Dia fill={TAN} s={0.7} /></F>
+      {/* incoming cubes, diagonal run */}
+      <F x={58} y={58} v="a"><IsoBox a={20} b={20} d={17} dashed /></F>
+      <F x={122} y={34} v="b"><IsoBox a={20} b={20} d={17} top={SKY} /></F>
+      <F x={186} y={58} v="c"><IsoBox a={20} b={20} d={17} top={BLUE} right={PALE} /></F>
+      {/* connectors from each cube's front-bottom vertex to the stack's north vertex */}
+      <Connector d="M58 97 Q110 128 200 124" />
+      <Connector d="M122 73 Q160 98 204 118" />
+      <Connector d="M186 97 Q198 108 208 116" />
       {/* destination: slab stack */}
-      <IsoBox x={224} y={128} a={54} b={40} d={11} top={PALE} />
-      <IsoBox x={224} y={148} a={54} b={40} d={11} top={SKY} />
-      <IsoBox x={224} y={168} a={54} b={40} d={11} top="#fff" />
-      <Tag x={166} y={216} w={128} text="AUTO-FILED → MODULE 5" />
+      <IsoBox x={210} y={120} a={54} b={40} d={11} top={PALE} />
+      <IsoBox x={210} y={138} a={54} b={40} d={11} top={SKY} />
+      <IsoBox x={210} y={156} a={54} b={40} d={11} top="#fff" />
+      <Tag x={158} y={216} w={128} text="AUTO-FILED → MODULE 5" />
     </svg>
   );
 }
 
-/* ── STEP 2: the best rises — middle cube elevated on a slab ── */
+/* ── STEP 2: the best rises — winner cube on a pedestal ── */
 export function IlloRise() {
   return (
     <svg viewBox="0 0 320 240" className="illo" role="img" aria-label="The most used resource ranked first">
-      <Dia x={160} y={30} fill={TAN} cls="illo-float-a" />
-      <Dia x={44} y={70} s={0.8} cls="illo-float-c" />
-      {/* raised winner */}
-      <IsoBox x={132} y={116} a={44} b={44} d={12} top={PALE} />
-      <IsoBox x={132} y={70} a={30} b={30} d={26} top={BLUE} right={SKY} cls="illo-float-b" />
-      <Tag x={112} y={30} w={96} text="★ 32 · MOST USED" />
-      <Connector d="M160 48 L160 62" />
-      {/* runners-up */}
-      <IsoBox x={44} y={140} a={24} b={24} d={20} top={SKY} />
-      <IsoBox x={244} y={146} a={24} b={24} d={20} dashed />
-      <Tag x={20} y={196} w={54} text="#2" />
-      <Tag x={226} y={200} w={54} text="#3" />
-      <Tag x={124} y={186} w={70} text="#1" fill={SKY} />
+      <F x={288} y={40} v="a"><Dia fill={TAN} s={0.8} /></F>
+      <F x={30} y={64} v="c"><Dia s={0.8} /></F>
+      {/* pedestal + winner */}
+      <IsoBox x={160} y={110} a={44} b={44} d={12} top={PALE} />
+      <IsoBox x={160} y={62} a={30} b={30} d={26} top={BLUE} right={SKY} />
+      <Tag x={96} y={22} w={128} text="#1 · MOST USED · ▲32" />
+      <Connector d="M160 40 L160 58" />
+      {/* runners-up on the floor */}
+      <IsoBox x={60} y={140} a={24} b={24} d={20} top={SKY} />
+      <IsoBox x={260} y={146} a={24} b={24} d={20} dashed />
+      <Tag x={33} y={206} w={54} text="#2" />
+      <Tag x={233} y={212} w={54} text="#3" />
     </svg>
   );
 }
@@ -140,67 +154,67 @@ export function IlloRise() {
 export function IlloLegacy() {
   return (
     <svg viewBox="0 0 320 240" className="illo" role="img" aria-label="Each graduating class hands its knowledge to the next">
-      <Dia x={160} y={40} cls="illo-float-a" />
-      <Dia x={288} y={92} fill={TAN} s={0.8} cls="illo-float-b" />
-      {/* class of 2026 stack */}
-      <IsoBox x={72} y={96} a={42} b={32} d={10} top={SKY} />
-      <IsoBox x={72} y={114} a={42} b={32} d={10} top={PALE} />
-      <IsoBox x={72} y={132} a={42} b={32} d={10} top="#fff" />
-      <Tag x={22} y={182} w={104} text="CLASS OF 2026" />
-      {/* arrow */}
-      <Connector d="M138 128 Q168 112 196 118" />
-      <path d="M196 118 l-8 -1 m8 1 l-5 7" stroke={STROKE} strokeWidth="1.2" fill="none" strokeLinecap="round" />
-      {/* class of 2027 stack — one layer taller, top filled */}
-      <IsoBox x={218} y={78} a={42} b={32} d={10} top={BLUE} right={SKY} cls="illo-float-b" />
-      <IsoBox x={218} y={96} a={42} b={32} d={10} top={SKY} />
-      <IsoBox x={218} y={114} a={42} b={32} d={10} top={PALE} />
-      <IsoBox x={218} y={132} a={42} b={32} d={10} top="#fff" />
-      <Tag x={196} y={182} w={104} text="CLASS OF 2027" />
+      <F x={160} y={34} v="a"><Dia /></F>
+      <F x={296} y={210} v="b"><Dia fill={TAN} s={0.7} /></F>
+      {/* class of 2026: three slabs */}
+      <IsoBox x={86} y={100} a={42} b={32} d={10} top={SKY} />
+      <IsoBox x={86} y={118} a={42} b={32} d={10} top={PALE} />
+      <IsoBox x={86} y={136} a={42} b={32} d={10} top="#fff" />
+      <Tag x={34} y={196} w={104} text="CLASS OF 2026" />
+      {/* straight dashed arrow, left stack → right stack */}
+      <Connector d="M132 116 L182 106" />
+      <path d="M182 106 l-9 -1 m9 1 l-6 7" stroke={STROKE} strokeWidth="1.3" fill="none" strokeLinecap="round" />
+      {/* class of 2027: four slabs, newest on top */}
+      <IsoBox x={234} y={82} a={42} b={32} d={10} top={BLUE} right={SKY} />
+      <IsoBox x={234} y={100} a={42} b={32} d={10} top={SKY} />
+      <IsoBox x={234} y={118} a={42} b={32} d={10} top={PALE} />
+      <IsoBox x={234} y={136} a={42} b={32} d={10} top="#fff" />
+      <Tag x={182} y={196} w={104} text="CLASS OF 2027" />
     </svg>
   );
 }
 
-/* ── AI layer: question in, cited answer out of the knowledge base ── */
+/* ── AI layer: question in, cited answer out ── */
 export function IlloAsk() {
   return (
     <svg viewBox="0 0 380 300" className="illo" role="img" aria-label="Ask a question, get an answer cited to the syllabus">
-      <Dia x={54} y={44} cls="illo-float-a" />
-      <Dia x={330} y={210} fill={TAN} s={0.8} cls="illo-float-c" />
+      <F x={344} y={40} v="a"><Dia /></F>
+      <F x={36} y={252} v="c"><Dia fill={TAN} s={0.8} /></F>
       {/* knowledge base */}
-      <Disc x={190} y={170} r={56} d={22} top={SKY} />
-      <Disc x={190} y={210} r={56} d={22} top={PALE} />
-      {/* question tag descending */}
-      <Tag x={44} y={58} w={148} text="WHY DOESN'T KEQ CHANGE?" fill="#fff" />
-      <Connector d="M118 78 Q136 110 158 138" />
-      {/* answer rising with citation */}
-      <Connector d="M228 138 Q252 104 268 84" />
-      <Tag x={222} y={52} w={120} text="ANSWER · CITED" fill={SKY} />
-      <Tag x={244} y={76} w={98} text="CH12-12 · Q21" />
-      {/* orbiting wireframe cube */}
-      <IsoBox x={64} y={186} a={20} b={20} d={17} dashed cls="illo-float-b" />
-      <IsoBox x={296} y={160} a={18} b={18} d={15} top={BLUE} right={PALE} cls="illo-float-a" />
+      <Disc x={190} y={168} r={56} d={22} top={SKY} />
+      <Disc x={190} y={208} r={56} d={22} top={PALE} />
+      {/* question flows in from the left */}
+      <Tag x={30} y={62} w={148} text="WHY DOESN'T KEQ CHANGE?" fill="#fff" />
+      <Connector d="M104 80 Q124 116 150 146" />
+      {/* answer flows out to the right */}
+      <Connector d="M230 146 Q252 112 268 90" />
+      <Tag x={226} y={58} w={118} text="ANSWER · CITED" fill={SKY} />
+      <Tag x={244} y={82} w={98} text="CH12-12 · Q21" />
+      {/* companion cubes */}
+      <F x={64} y={196} v="b"><IsoBox a={18} b={18} d={15} dashed /></F>
+      <F x={306} y={196} v="a"><IsoBox a={18} b={18} d={15} top={BLUE} right={PALE} /></F>
     </svg>
   );
 }
 
-/* ── Voice: sound bars pulsing into the base ── */
+/* ── Voice: isometric equaliser streaming into the listening base ── */
 export function IlloVoice() {
   return (
     <svg viewBox="0 0 340 220" className="illo" role="img" aria-label="Voice session with the tutor">
-      <Dia x={300} y={44} cls="illo-float-a" />
-      <Dia x={36} y={60} fill={TAN} s={0.8} cls="illo-float-b" />
-      {/* equaliser bars, iso */}
-      <IsoBox x={62} y={104} a={13} b={13} d={22} top={SKY} cls="wavebox-1" />
-      <IsoBox x={96} y={84} a={13} b={13} d={48} top={BLUE} right={SKY} cls="wavebox-2" />
-      <IsoBox x={130} y={96} a={13} b={13} d={32} top={SKY} cls="wavebox-3" />
-      <IsoBox x={164} y={110} a={13} b={13} d={16} top={PALE} cls="wavebox-1" />
-      <Tag x={52} y={182} w={132} text="VOICE SESSION · 04:32" />
+      <F x={306} y={36} v="a"><Dia /></F>
+      <F x={30} y={52} v="b"><Dia fill={TAN} s={0.7} /></F>
+      {/* equaliser bars, bottoms aligned at y=150 */}
+      <F x={66} y={115} v="a"><IsoBox a={13} b={13} d={22} top={SKY} /></F>
+      <F x={100} y={89} v="b"><IsoBox a={13} b={13} d={48} top={BLUE} right={SKY} /></F>
+      <F x={134} y={105} v="c"><IsoBox a={13} b={13} d={32} top={SKY} /></F>
+      <F x={168} y={121} v="a"><IsoBox a={13} b={13} d={16} top={PALE} /></F>
+      <Tag x={60} y={172} w={132} text="VOICE SESSION · 04:32" />
       {/* listening base */}
-      <Disc x={262} y={120} r={44} d={18} top={SKY} />
-      <Connector d="M196 128 Q222 124 216 124" />
-      <Connector d="M188 132 L216 128" />
-      <Tag x={222} y={62} w={80} text="LISTENING" fill="#fff" />
-      <Connector d="M262 84 L262 96" />
+      <Disc x={262} y={112} r={44} d={18} top={SKY} />
+      <Tag x={222} y={42} w={80} text="LISTENING" fill="#fff" />
+      <Connector d="M262 60 L262 86" />
+      {/* stream: bars → base */}
+      <Connector d="M190 134 Q216 128 230 122" />
     </svg>
   );
 }
