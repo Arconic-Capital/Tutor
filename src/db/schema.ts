@@ -65,6 +65,18 @@ export const documents = pgTable("documents", {
   fetchedAt: timestamp("fetched_at").notNull().defaultNow(),
 });
 
+// AI-generated study artifacts — flashcards, cheat sheets, notes, formula sheets, practice questions
+export const artifacts = pgTable("artifacts", {
+  id: uuid("id").defaultRandom().primaryKey(),
+  courseId: text("course_id").notNull().references(() => courses.id),
+  type: text("type").notNull(), // flashcards | cheat_sheet | study_notes | formula_sheet | practice_questions
+  title: text("title").notNull(),
+  prompt: text("prompt"), // the topic/request that produced it
+  content: text("content").notNull(), // flashcards: JSON {cards:[{front,back}]}; others: markdown
+  sourceTitles: text("source_titles"), // human-readable list of source documents
+  createdAt: timestamp("created_at").notNull().defaultNow(),
+});
+
 // ── Auth.js adapter tables ──
 export const accounts = pgTable(
   "accounts",

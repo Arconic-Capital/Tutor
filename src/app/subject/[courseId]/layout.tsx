@@ -25,7 +25,7 @@ export default async function SubjectLayout({
     { key: "tutor", label: "Tutor", soon: false },
     { key: "syllabus", label: "Syllabus", soon: false },
     { key: "repository", label: `Repository · ${resourceCount}`, soon: false },
-    { key: "artifacts", label: "Artifacts", soon: true },
+    { key: "artifacts", label: "Study kit", soon: false },
     { key: "forum", label: "Forum", soon: true },
   ];
 
