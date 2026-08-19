@@ -139,3 +139,15 @@
 @media (prefers-reduced-motion: reduce) {
   .illo-float-a, .illo-float-b, .illo-float-c, .wave-1, .wave-2, .wave-3, .grow-bar { animation: none; }
 }
+
+/* isometric illustration motion */
+@keyframes march { to { stroke-dashoffset: -14; } }
+.march { animation: march 1.1s linear infinite; }
+@keyframes wavebob { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-8px); } }
+.wavebox-1 { animation: wavebob 1.5s ease-in-out infinite; }
+.wavebox-2 { animation: wavebob 1.5s ease-in-out 0.2s infinite; }
+.wavebox-3 { animation: wavebob 1.5s ease-in-out 0.4s infinite; }
+.illo text { text-transform: uppercase; }
+@media (prefers-reduced-motion: reduce) {
+  .march, .wavebox-1, .wavebox-2, .wavebox-3 { animation: none; }
+}
