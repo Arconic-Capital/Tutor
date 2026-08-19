@@ -1,6 +1,7 @@
 "use client";
 
-import { use, useCallback, useEffect, useState } from "react";
+import { use, useCallback, useEffect, useRef, useState } from "react";
+import { useSearchParams } from "next/navigation";
 import Link from "next/link";
 
 const TYPES = [
@@ -29,13 +30,15 @@ interface ArtifactRow {
 
 export default function ArtifactsPage({ params }: { params: Promise<{ courseId: string }> }) {
   const { courseId } = use(params);
+  const searchParams = useSearchParams();
   const [list, setList] = useState<ArtifactRow[]>([]);
   const [filter, setFilter] = useState("all");
-  const [genType, setGenType] = useState("flashcards");
-  const [topic, setTopic] = useState("");
+  const [genType, setGenType] = useState(searchParams.get("type") ?? "flashcards");
+  const [topic, setTopic] = useState(searchParams.get("topic") ?? "");
   const [busy, setBusy] = useState(false);
   const [error, setError] = useState("");
   const [flipped, setFlipped] = useState(false);
+  const autoRan = useRef(false);
 
   const load = useCallback(async () => {
     const res = await fetch(`/api/artifacts?courseId=${courseId}`);
@@ -46,14 +49,28 @@ export default function ArtifactsPage({ params }: { params: Promise<{ courseId: 
     load();
   }, [load]);
 
-  async function generate() {
+  // arriving from the home ask bar with ?auto=1 kicks off generation immediately
+  useEffect(() => {
+    if (searchParams.get("auto") === "1" && !autoRan.current) {
+      autoRan.current = true;
+      window.history.replaceState(null, "", window.location.pathname);
+      generate(searchParams.get("type") ?? "flashcards", searchParams.get("topic") ?? "");
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
+
+  async function generate(typeOverride?: string, topicOverride?: string) {
     setBusy(true);
     setError("");
     try {
       const res = await fetch("/api/artifacts", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ courseId, type: genType, topic: topic.trim() || undefined }),
+        body: JSON.stringify({
+          courseId,
+          type: typeOverride ?? genType,
+          topic: (topicOverride ?? topic).trim() || undefined,
+        }),
       });
       if (!res.ok) throw new Error(await res.text());
       const { id } = await res.json();
@@ -147,7 +164,7 @@ export default function ArtifactsPage({ params }: { params: Promise<{ courseId: 
             className="min-w-[200px] flex-1 rounded-full border border-[#e3e0da] px-4 py-1.5 text-[13px] outline-none placeholder:text-[#b6b1aa] focus:border-[#2777c2]"
           />
           <button
-            onClick={generate}
+            onClick={() => generate()}
             disabled={busy}
             className="rounded-full bg-[#1a1815] px-5 py-1.5 text-[13px] font-semibold text-white disabled:opacity-40"
           >
