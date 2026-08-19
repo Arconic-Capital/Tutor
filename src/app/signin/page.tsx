@@ -11,12 +11,12 @@ export default function SignInPage() {
             <rect x="6.5" y="10" width="19" height="9" rx="3" fill="#2777c2" />
             <rect x="9" y="4" width="14" height="9" rx="3" fill="#7db3e0" />
           </svg>
-          cram
+          sorted
         </Link>
       </nav>
       <div className="flex flex-1 items-center justify-center px-6 pb-24">
         <div className="w-full max-w-sm rounded-2xl border border-[#eeece8] p-8 shadow-[0_14px_40px_rgba(26,24,21,0.08)]">
-          <h1 className="text-xl font-semibold tracking-tight">Sign in to Cram</h1>
+          <h1 className="text-xl font-semibold tracking-tight">Sign in to Sorted</h1>
           <p className="mt-1.5 text-sm text-[#8a857e]">
             Use your school email — we&apos;ll send you a login link.
           </p>

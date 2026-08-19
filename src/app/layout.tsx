@@ -13,8 +13,8 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "Cram — Sydney High",
-  description: "The AI study companion that knows the HSC syllabus — for Sydney Boys High students",
+  title: "Sorted — Sydney High",
+  description: "The AI that runs your HSC — timetable, assessments, study and tutoring in one place",
 };
 
 export default function RootLayout({ children }: LayoutProps<"/">) {

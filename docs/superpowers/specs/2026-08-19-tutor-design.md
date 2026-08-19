@@ -3,6 +3,21 @@
 **Date:** 2026-08-19
 **Status:** Approved for planning — **superseded in part by the v2 Addendum below (chat-first pivot)**
 
+## v3 Addendum — pivot to "Sorted": calendar-centric HSC life assistant (approved 2026-08-19)
+
+**Repositioning:** from study-tool ("Cram") to **Sorted — the AI that runs your HSC**. The centre of the product is the student's calendar/workload, not the tutor. The existing study tools (tutor, quiz, marker, predictor, study kit) remain as the **execution layer**: calendar blocks deep-link into them.
+
+**Core experience:**
+- Onboarding adds "feed it your life": upload timetable (photo/PDF, A/B-cycle aware), per-subject assessment schedule PDFs, tutoring/sport/extracurricular times → AI extraction → review/confirm screen.
+- **Today** (new home): timeline of the real day (classes, sport, tutoring) + AI-placed study blocks in gaps + triaged "Tonight" list + assessment countdown chips + one-line daily brief.
+- **Week view:** fixed life in grey, assessments red, AI study blocks blue; drag to accept/move.
+- **Month/term view:** assessment-density map — pile-up weeks visible from week 1.
+- **Planner brain:** backwards prep plan auto-generated per assessment/exam; sessions fill free slots; re-plans when skipped; every block links to a concrete action in the study tools.
+- **Capture:** quick-add ("eco essay fri") + photo of whiteboard/notice → dated task.
+- **Integrations:** v1 upload-first + ICS feed out; v2 Google Calendar + Google Classroom OAuth; v3 school-portal ingestion via screenshots.
+
+**Strategy:** HSC is the wedge; the events/tasks/sources/planner engine is domain-agnostic for later expansion (uni, general). Keep: design system, subjects infra, ingestion, study tools, auth posture. Demote: repository/forum (inside subjects). Replace: home page, Plan page.
+
 ## v2 Addendum — chat-first AI tutor (approved 2026-08-19)
 
 The product pivoted from library-first to **chat-first AI tutor**. Approved via wireframes v6 (`public/ui-drafts.html`, artifact "Tutor — Wireframes v6").

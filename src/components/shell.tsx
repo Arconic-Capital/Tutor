@@ -46,7 +46,7 @@ export default async function Shell({ activeCourseId }: { activeCourseId: string
     <nav className="flex items-center justify-between gap-4 border-b border-[#eeece8] px-6 py-3">
       <Link href="/" className="flex shrink-0 items-center gap-2 text-[16px] font-bold tracking-tight">
         <CramMark />
-        cram
+        sorted
       </Link>
       <div className="flex flex-1 flex-wrap items-center justify-center gap-1">
         <Link
@@ -66,6 +66,7 @@ export default async function Shell({ activeCourseId }: { activeCourseId: string
         ))}
       </div>
       <div className="flex shrink-0 items-center gap-4 text-sm text-[#8a857e]">
+        <Link href="/calendar" className="hover:text-[#1a1815]">Calendar</Link>
         <Link href="/plan" className="hover:text-[#1a1815]">Plan</Link>
         <Link href="/onboarding" className="hover:text-[#1a1815]">Subjects</Link>
         <span className="grid h-7 w-7 place-items-center rounded-full bg-[#40342b] text-[11px] font-semibold text-white">A</span>

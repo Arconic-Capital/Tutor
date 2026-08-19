@@ -124,6 +124,48 @@ export const threadReplies = pgTable("thread_replies", {
   createdAt: timestamp("created_at").notNull().defaultNow(),
 });
 
+// ── Sorted: calendar/workload engine (domain-agnostic) ──
+
+// Where a piece of schedule/work came from (an uploaded timetable, assessment schedule, manual entry…)
+export const sources = pgTable("sources", {
+  id: uuid("id").defaultRandom().primaryKey(),
+  kind: text("kind").notNull(), // timetable | assessment_schedule | notice | manual | photo
+  label: text("label").notNull(), // e.g. "Chemistry assessment schedule.pdf"
+  url: text("url"), // blob url if uploaded
+  createdAt: timestamp("created_at").notNull().defaultNow(),
+});
+
+// Recurring or one-off calendar events (classes, sport, tutoring, anything with a time)
+export const events = pgTable("events", {
+  id: uuid("id").defaultRandom().primaryKey(),
+  sourceId: uuid("source_id").references(() => sources.id, { onDelete: "set null" }),
+  courseId: text("course_id").references(() => courses.id), // null for non-subject events (sport, tutoring)
+  title: text("title").notNull(),
+  kind: text("kind").notNull(), // class | sport | tutoring | extracurricular | study_block | other
+  dayOfWeek: integer("day_of_week"), // 1=Mon…7=Sun for recurring
+  weekCycle: text("week_cycle"), // A | B | null (both weeks)
+  startTime: text("start_time"), // "09:05" for recurring
+  endTime: text("end_time"),
+  date: timestamp("date"), // set for one-off events / dated study blocks
+  location: text("location"),
+  notes: text("notes"),
+  createdAt: timestamp("created_at").notNull().defaultNow(),
+});
+
+// Dated work: assessments, exams, homework, tasks
+export const workItems = pgTable("work_items", {
+  id: uuid("id").defaultRandom().primaryKey(),
+  sourceId: uuid("source_id").references(() => sources.id, { onDelete: "set null" }),
+  courseId: text("course_id").references(() => courses.id),
+  title: text("title").notNull(),
+  kind: text("kind").notNull(), // assessment | exam | homework | task
+  dueDate: timestamp("due_date"),
+  weighting: integer("weighting"), // % for assessments
+  status: text("status").notNull().default("open"), // open | done
+  notes: text("notes"),
+  createdAt: timestamp("created_at").notNull().defaultNow(),
+});
+
 // ── Auth.js adapter tables ──
 export const accounts = pgTable(
   "accounts",

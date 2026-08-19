@@ -18,13 +18,13 @@ export default async function SharePage({ params }: { params: Promise<{ artifact
       <nav className="flex items-center justify-between border-b border-[#eeece8] px-6 py-3">
         <span className="flex items-center gap-2 text-[16px] font-bold tracking-tight">
           <CramMark />
-          cram
+          sorted
         </span>
         <Link
           href="/landing"
           className="rounded-full bg-[#1a1815] px-4 py-1.5 text-[13px] font-semibold text-white"
         >
-          Made with Cram — get it
+          Made with Sorted — get it
         </Link>
       </nav>
       <main className="mx-auto max-w-3xl px-6 py-8">
