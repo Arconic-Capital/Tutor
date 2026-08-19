@@ -77,6 +77,15 @@ export const artifacts = pgTable("artifacts", {
   createdAt: timestamp("created_at").notNull().defaultNow(),
 });
 
+// Saved tutor conversations (one active chat per course for now)
+export const chats = pgTable("chats", {
+  id: uuid("id").defaultRandom().primaryKey(),
+  courseId: text("course_id").notNull().references(() => courses.id),
+  docIds: text("doc_ids"), // csv of document ids pinned for this conversation
+  messages: text("messages").notNull().default("[]"), // JSON [{role, content, sources?}]
+  updatedAt: timestamp("updated_at").notNull().defaultNow(),
+});
+
 // ── Auth.js adapter tables ──
 export const accounts = pgTable(
   "accounts",

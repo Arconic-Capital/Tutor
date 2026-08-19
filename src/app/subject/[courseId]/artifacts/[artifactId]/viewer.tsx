@@ -1,26 +1,8 @@
 "use client";
 
 import { useMemo, useState } from "react";
-import { marked } from "marked";
-import katex from "katex";
+import { renderMarkdown } from "@/lib/markdown";
 import "katex/dist/katex.min.css";
-
-const unescapeHtml = (s: string) =>
-  s.replace(/&amp;/g, "&").replace(/&lt;/g, "<").replace(/&gt;/g, ">").replace(/&quot;/g, '"').replace(/&#39;/g, "'");
-
-/** Render $...$ and $$...$$ LaTeX inside already-parsed HTML. */
-function renderMath(html: string): string {
-  const tex = (src: string, display: boolean) => {
-    try {
-      return katex.renderToString(unescapeHtml(src), { displayMode: display, throwOnError: false });
-    } catch {
-      return src;
-    }
-  };
-  return html
-    .replace(/\$\$([\s\S]+?)\$\$/g, (_, t) => tex(t, true))
-    .replace(/\$([^$\n]+?)\$/g, (_, t) => tex(t, false));
-}
 
 interface Card {
   front: string;
@@ -56,7 +38,7 @@ export default function ArtifactViewer({
     [isFlash, content],
   );
   const html = useMemo(
-    () => (isFlash ? "" : renderMath(marked.parse(content) as string)),
+    () => (isFlash ? "" : renderMarkdown(content)),
     [isFlash, content],
   );
 
@@ -105,26 +87,6 @@ export default function ArtifactViewer({
         />
       )}
 
-      <style jsx global>{`
-        .prose-cram { font-size: 14.5px; line-height: 1.7; }
-        .prose-cram h1 { font-size: 20px; font-weight: 650; margin: 26px 0 8px; letter-spacing: -0.015em; }
-        .prose-cram h2 { font-size: 17px; font-weight: 650; margin: 24px 0 6px; letter-spacing: -0.01em; }
-        .prose-cram h3 { font-size: 15px; font-weight: 650; margin: 18px 0 4px; }
-        .prose-cram p { margin: 8px 0; }
-        .prose-cram ul, .prose-cram ol { margin: 8px 0; padding-left: 22px; }
-        .prose-cram li { margin: 3px 0; }
-        .prose-cram code { background: #faf9f7; padding: 1px 5px; border-radius: 4px; font-size: 13px; }
-        .prose-cram pre { background: #faf9f7; padding: 12px 14px; border-radius: 10px; overflow-x: auto; }
-        .prose-cram table { border-collapse: collapse; margin: 10px 0; width: 100%; font-size: 13.5px; }
-        .prose-cram th, .prose-cram td { border: 1px solid #eeece8; padding: 6px 10px; text-align: left; }
-        .prose-cram th { background: #faf9f7; font-weight: 600; }
-        .prose-cram strong { font-weight: 650; }
-        .prose-cram blockquote { border-left: 3px solid #bfe0f5; margin: 10px 0; padding: 2px 14px; color: #6e6862; }
-        @media print {
-          nav, .print\\:hidden { display: none !important; }
-          body { font-size: 12px; }
-        }
-      `}</style>
     </div>
   );
 }
