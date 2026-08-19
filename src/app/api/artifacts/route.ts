@@ -46,12 +46,36 @@ export async function GET(req: Request) {
       id: artifacts.id,
       type: artifacts.type,
       title: artifacts.title,
+      content: artifacts.content,
+      sourceTitles: artifacts.sourceTitles,
       createdAt: artifacts.createdAt,
     })
     .from(artifacts)
     .where(eq(artifacts.courseId, courseId))
     .orderBy(desc(artifacts.createdAt));
-  return Response.json(list);
+
+  // predictions live on the Predictor tab, not in the study-kit library
+  const rows = list
+    .filter((a) => a.type !== "prediction")
+    .map((a) => {
+      let meta = "";
+      let preview: { front: string; back: string } | null = null;
+      if (a.type === "flashcards") {
+        try {
+          const cards = (JSON.parse(a.content) as { cards: { front: string; back: string }[] }).cards;
+          meta = `${cards.length} cards`;
+          preview = cards[0] ?? null;
+        } catch {
+          meta = "deck";
+        }
+      } else {
+        meta = `${Math.max(1, Math.round(a.content.split(/\s+/).length / 200))} min read`;
+      }
+      const sourceCount = a.sourceTitles ? a.sourceTitles.split(" | ").length : 0;
+      if (sourceCount) meta += ` · ${sourceCount} sources`;
+      return { id: a.id, type: a.type, title: a.title, createdAt: a.createdAt, meta, preview };
+    });
+  return Response.json(rows);
 }
 
 export async function POST(req: Request) {
