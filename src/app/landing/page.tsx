@@ -2,6 +2,7 @@
 
 import Link from "next/link";
 import { useEffect } from "react";
+import { IlloContribute, IlloRise, IlloLegacy, IlloAsk, IlloVoice, IlloPodiumRace } from "./illustrations";
 import "./landing.css";
 
 const SUBJECTS = [
@@ -73,15 +74,18 @@ export default function Landing() {
       </div>
 
       {/* the why */}
-      <section className="ld-why reveal">
-        <p className="ld-kicker">Why this exists</p>
-        <h2>The schools winning the HSC are the ones that share.</h2>
-        <p className="ld-sub">
-          North Sydney Boys overtook James Ruse to rank first in NSW — carried by a
-          cohort culture of sharing everything. Right now their notes are scattered
-          across the internet. High&apos;s don&apos;t have to be. One repository, owned by
-          High students, compounding every single year.
-        </p>
+      <section className="ld-why-split reveal">
+        <div>
+          <p className="ld-kicker">Why this exists</p>
+          <h2>The schools winning the HSC are the ones that share.</h2>
+          <p className="ld-sub">
+            North Sydney Boys overtook James Ruse to rank first in NSW — carried by a
+            cohort culture of sharing everything. Right now their notes are scattered
+            across the internet. High&apos;s don&apos;t have to be. One repository, owned by
+            High students, compounding every single year.
+          </p>
+        </div>
+        <IlloPodiumRace />
       </section>
 
       {/* how it compounds */}
@@ -90,42 +94,33 @@ export default function Landing() {
           <span className="step-n">1</span>
           <h3>Everyone contributes</h3>
           <p>Notes, summaries, essays, trial attempts — drop anything in. It files itself by subject, module and type.</p>
-          <div className="mini-card">
-            <div className="mini-row"><i>📄</i> Equilibrium summary <em>★20</em></div>
-            <div className="mini-row"><i>📝</i> SBHS 2023 trial <em>★32</em></div>
-            <div className="mini-row"><i>🔗</i> 2024 HSC + guidelines <em>NESA</em></div>
-          </div>
+          <IlloContribute />
         </div>
         <div className="step reveal">
           <span className="step-n">2</span>
           <h3>The best rises</h3>
           <p>What the cohort actually uses ranks first — opens, saves, upvotes, comments. Duds sink. Errors get caught by the crowd.</p>
-          <div className="mini-card chatty">
-            <div className="bub user">why doesn&apos;t Keq change?</div>
-            <div className="bub ai">Keq is fixed at a given temperature — only the position shifts…<span className="src">CH12-12 · J. Chen&apos;s summary ★20</span></div>
-          </div>
+          <IlloRise />
         </div>
         <div className="step reveal">
           <span className="step-n">3</span>
           <h3>Every year starts ahead</h3>
           <p>Graduating students leave their notes behind. The AI studies all of it — so you can search, ask, quiz, and generate from decades of High knowledge.</p>
-          <div className="mini-card flashy">Class of 2027 starts with everything the Class of 2026 knew.</div>
+          <IlloLegacy />
         </div>
       </section>
 
       {/* the AI layer */}
-      <section className="ld-why reveal">
-        <p className="ld-kicker">Then the AI goes to work</p>
-        <h2>Ask it anything. It answers from High&apos;s own knowledge.</h2>
-        <p className="ld-sub">
-          Every answer cites the syllabus dot point and the cohort resources it drew from.
-          Turn any answer into flashcards, cheat sheets, predicted papers — marked
-          against real NESA guidelines.
-        </p>
-        <div className="ld-chips" style={{ justifyContent: "center", marginTop: 22 }}>
-          <span className="chip float-a">&ldquo;Quiz me on Equilibrium&rdquo;</span>
-          <span className="chip float-b">&ldquo;Predict my Physics paper&rdquo;</span>
-          <span className="chip float-c">&ldquo;Mark my Hamlet essay&rdquo;</span>
+      <section className="ld-why-split reverse reveal">
+        <IlloAsk />
+        <div>
+          <p className="ld-kicker">Then the AI goes to work</p>
+          <h2>Ask it anything. It answers from High&apos;s own knowledge.</h2>
+          <p className="ld-sub">
+            Every answer cites the syllabus dot point and the cohort resources it drew from.
+            Turn any answer into flashcards, cheat sheets, predicted papers — marked
+            against real NESA guidelines.
+          </p>
         </div>
       </section>
 
@@ -139,7 +134,7 @@ export default function Landing() {
 
       {/* voice */}
       <section className="ld-voice reveal">
-        <div className="orb" aria-hidden />
+        <IlloVoice />
         <div>
           <h2>Talk to it.</h2>
           <p className="ld-sub">Voice mode for hands-free study — and real speaking-exam practice for French, Japanese, Chinese, German and Latin orals.</p>
