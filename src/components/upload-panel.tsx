@@ -1,52 +1,56 @@
 "use client";
 
 import { useRef, useState } from "react";
+import { useRouter } from "next/navigation";
 import { upload } from "@vercel/blob/client";
 
-interface Filed {
-  courseId: string;
-  courseName: string;
-  title: string;
-  resourceType: string;
-  tutorReadable: boolean;
+interface Item {
+  name: string;
+  status: "uploading" | "filing" | "done" | "error";
+  result?: { courseName: string; title: string; resourceType: string; tutorReadable: boolean };
+  error?: string;
 }
 
 export default function UploadPanel({ courseId }: { courseId?: string }) {
+  const router = useRouter();
   const [open, setOpen] = useState(false);
   const [consent, setConsent] = useState(false);
-  const [state, setState] = useState<"idle" | "uploading" | "filing" | "done" | "error">("idle");
-  const [filed, setFiled] = useState<Filed | null>(null);
-  const [error, setError] = useState("");
+  const [items, setItems] = useState<Item[]>([]);
+  const [dragging, setDragging] = useState(false);
   const fileRef = useRef<HTMLInputElement>(null);
 
-  async function handleFile(file: File) {
-    setState("uploading");
-    setError("");
-    try {
-      const blob = await upload(file.name, file, {
-        access: "public",
-        handleUploadUrl: "/api/upload",
-      });
-      setState("filing");
-      const res = await fetch("/api/resources", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ url: blob.url, filename: file.name, consent: true, courseId }),
-      });
-      if (!res.ok) throw new Error(await res.text());
-      setFiled(await res.json());
-      setState("done");
-    } catch (e) {
-      setError((e as Error).message);
-      setState("error");
-    }
+  function update(name: string, patch: Partial<Item>) {
+    setItems((prev) => prev.map((it) => (it.name === name ? { ...it, ...patch } : it)));
+  }
+
+  async function handleFiles(files: FileList | File[]) {
+    const list = [...files].slice(0, 10);
+    setItems((prev) => [...prev, ...list.map((f) => ({ name: f.name, status: "uploading" as const }))]);
+    await Promise.all(
+      list.map(async (file) => {
+        try {
+          const blob = await upload(file.name, file, { access: "public", handleUploadUrl: "/api/upload" });
+          update(file.name, { status: "filing" });
+          const res = await fetch("/api/resources", {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({ url: blob.url, filename: file.name, consent: true, courseId }),
+          });
+          if (!res.ok) throw new Error(await res.text());
+          update(file.name, { status: "done", result: await res.json() });
+        } catch (e) {
+          update(file.name, { status: "error", error: (e as Error).message });
+        }
+      }),
+    );
+    router.refresh(); // filed resources appear in the list immediately
   }
 
   if (!open) {
     return (
       <button
         onClick={() => setOpen(true)}
-        className="rounded-full border border-[#e3e0da] px-4 py-1.5 text-[13px] font-medium hover:bg-[#faf9f7]"
+        className="rounded-full bg-[#1a1815] px-4 py-1.5 text-[13px] font-semibold text-white"
       >
         ↑ Upload
       </button>
@@ -54,60 +58,93 @@ export default function UploadPanel({ courseId }: { courseId?: string }) {
   }
 
   return (
-    <div className="w-full rounded-2xl border border-[#e3e0da] p-5 shadow-[0_1px_3px_rgba(26,24,21,0.05)]">
-      {state === "done" && filed ? (
-        <div className="text-sm">
-          <p className="font-semibold text-[#3b7a57]">✓ Filed automatically</p>
-          <p className="mt-1">
-            <span className="font-medium">{filed.title}</span> → {filed.courseName} ·{" "}
-            {filed.resourceType.replace("_", " ")}
-            {filed.tutorReadable && <span className="text-[#8a857e]"> · the tutor can now read it</span>}
+    <div className="w-full rounded-2xl border border-[#e3e0da] p-5">
+      <div className="flex items-start justify-between">
+        <div>
+          <p className="text-sm font-semibold">Share resources</p>
+          <p className="mt-0.5 text-[13px] text-[#8a857e]">
+            Notes, summaries, practice questions — they file themselves and become searchable by the tutor.
           </p>
-          <button
-            onClick={() => { setState("idle"); setFiled(null); setConsent(false); }}
-            className="mt-3 text-[13px] text-[#2777c2] underline"
-          >
-            Upload another
-          </button>
         </div>
-      ) : (
-        <>
-          <p className="text-sm font-semibold">Share a resource</p>
-          <p className="mt-1 text-[13px] text-[#8a857e]">
-            Notes, summaries, practice questions — PDF, images or text. It files itself into the right subject and becomes searchable by the tutor.
-          </p>
-          <label className="mt-4 flex items-start gap-2.5 rounded-xl border border-dashed border-[#e3e0da] p-3 text-[12.5px] text-[#6e6862]">
-            <input
-              type="checkbox"
-              checked={consent}
-              onChange={(e) => setConsent(e.target.checked)}
-              className="mt-0.5"
-            />
-            <span>
-              I created this resource or have the right to share it, and I understand it may be removed if a copyright owner objects.
-            </span>
-          </label>
-          <div className="mt-4 flex items-center gap-3">
-            <input
-              ref={fileRef}
-              type="file"
-              accept=".pdf,.txt,.md,.png,.jpg,.jpeg,.docx"
-              className="hidden"
-              onChange={(e) => e.target.files?.[0] && handleFile(e.target.files[0])}
-            />
-            <button
-              onClick={() => fileRef.current?.click()}
-              disabled={!consent || state === "uploading" || state === "filing"}
-              className="rounded-full bg-[#1a1815] px-5 py-2 text-sm font-semibold text-white disabled:opacity-40"
-            >
-              {state === "uploading" ? "Uploading…" : state === "filing" ? "Filing it…" : "Choose file"}
-            </button>
-            <button onClick={() => setOpen(false)} className="text-[13px] text-[#8a857e] hover:text-[#1a1815]">
-              Cancel
-            </button>
-          </div>
-          {state === "error" && <p className="mt-3 text-xs text-[#a44a3c]">{error}</p>}
-        </>
+        <button onClick={() => setOpen(false)} className="text-[13px] text-[#8a857e] hover:text-[#1a1815]">
+          Close
+        </button>
+      </div>
+
+      <label className="mt-4 flex items-start gap-2.5 text-[12.5px] text-[#6e6862]">
+        <input type="checkbox" checked={consent} onChange={(e) => setConsent(e.target.checked)} className="mt-0.5" />
+        <span>I created these or have the right to share them; they may be removed if a copyright owner objects.</span>
+      </label>
+
+      <div
+        onDragOver={(e) => {
+          e.preventDefault();
+          if (consent) setDragging(true);
+        }}
+        onDragLeave={() => setDragging(false)}
+        onDrop={(e) => {
+          e.preventDefault();
+          setDragging(false);
+          if (consent && e.dataTransfer.files.length) handleFiles(e.dataTransfer.files);
+        }}
+        onClick={() => consent && fileRef.current?.click()}
+        className={`mt-3 cursor-pointer rounded-xl border-2 border-dashed p-8 text-center text-sm transition-colors ${
+          !consent
+            ? "border-[#eeece8] text-[#c9c4bc]"
+            : dragging
+              ? "border-[#2777c2] bg-[#f0f6fc] text-[#2777c2]"
+              : "border-[#d9d5ce] text-[#8a857e] hover:border-[#2777c2]"
+        }`}
+      >
+        {consent ? (
+          <>
+            <span className="font-medium">Drop files here</span> or click to browse
+            <span className="mt-1 block text-xs text-[#b6b1aa]">PDF, images, text — up to 10 at once, 50 MB each</span>
+          </>
+        ) : (
+          "Tick the declaration above to enable uploads"
+        )}
+      </div>
+      <input
+        ref={fileRef}
+        type="file"
+        multiple
+        accept=".pdf,.txt,.md,.png,.jpg,.jpeg,.docx"
+        className="hidden"
+        onChange={(e) => e.target.files?.length && handleFiles(e.target.files)}
+      />
+
+      {items.length > 0 && (
+        <ul className="mt-4 flex flex-col gap-1.5">
+          {items.map((it, i) => (
+            <li key={i} className="flex items-center gap-3 text-[13px]">
+              {it.status === "done" ? (
+                <span className="text-[#3b7a57]">✓</span>
+              ) : it.status === "error" ? (
+                <span className="text-[#a44a3c]">✕</span>
+              ) : (
+                <span className="inline-block h-3 w-3 animate-spin rounded-full border-2 border-[#bfe0f5] border-t-[#2777c2]" />
+              )}
+              <span className="min-w-0 flex-1 truncate">
+                {it.status === "done" && it.result ? (
+                  <>
+                    <span className="font-medium">{it.result.title}</span>
+                    <span className="text-[#8a857e]">
+                      {" "}→ {it.result.courseName} · {it.result.resourceType.replace("_", " ")}
+                      {it.result.tutorReadable && " · tutor can read it"}
+                    </span>
+                  </>
+                ) : it.status === "error" ? (
+                  <span className="text-[#a44a3c]">{it.name}: {it.error?.slice(0, 80)}</span>
+                ) : (
+                  <span className="text-[#8a857e]">
+                    {it.name} — {it.status === "uploading" ? "uploading…" : "filing it…"}
+                  </span>
+                )}
+              </span>
+            </li>
+          ))}
+        </ul>
       )}
     </div>
   );

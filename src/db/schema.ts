@@ -106,6 +106,24 @@ export const plans = pgTable("plans", {
   createdAt: timestamp("created_at").notNull().defaultNow(),
 });
 
+// Per-subject forum
+export const threads = pgTable("threads", {
+  id: uuid("id").defaultRandom().primaryKey(),
+  courseId: text("course_id").notNull().references(() => courses.id),
+  title: text("title").notNull(),
+  body: text("body"),
+  votes: integer("votes").notNull().default(0),
+  createdAt: timestamp("created_at").notNull().defaultNow(),
+});
+
+export const threadReplies = pgTable("thread_replies", {
+  id: uuid("id").defaultRandom().primaryKey(),
+  threadId: uuid("thread_id").notNull().references(() => threads.id, { onDelete: "cascade" }),
+  body: text("body").notNull(),
+  isTutor: integer("is_tutor").notNull().default(0), // 1 = @tutor answered
+  createdAt: timestamp("created_at").notNull().defaultNow(),
+});
+
 // ── Auth.js adapter tables ──
 export const accounts = pgTable(
   "accounts",

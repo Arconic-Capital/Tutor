@@ -43,7 +43,12 @@ export default function OnboardingFlow({
   const [busy, setBusy] = useState(false);
 
   const eligible = useMemo(
-    () => (year ? courses.filter((c) => c.yearLevels.includes(year)) : []),
+    () =>
+      year
+        ? year >= 11
+          ? courses.filter((c) => c.stage === 6) // all HSC courses incl. Year-12-only extensions
+          : courses.filter((c) => c.yearLevels.includes(year))
+        : [],
     [courses, year],
   );
   const grouped = useMemo(() => {

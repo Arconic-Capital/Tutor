@@ -63,7 +63,7 @@ export default async function RepositoryPage({ params }: { params: Promise<{ cou
           ))}
         </ul>
         <p className="mt-6 rounded-lg bg-[#f0f6fc] p-3 text-xs leading-relaxed text-[#2777c2]">
-          Official NESA material is linked, never re-hosted. Student uploads are coming next.
+          Official NESA material is linked, never re-hosted. Anything you upload files itself and becomes readable by the tutor.
         </p>
       </aside>
 
