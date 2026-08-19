@@ -1,6 +1,6 @@
 import Link from "next/link";
 import Shell from "@/components/shell";
-import { eventsForDate, upcomingWork, weekCycleFor, type DayEvent } from "@/lib/schedule";
+import { eventsForDate, upcomingWork, weekCycleFor, localIso, type DayEvent } from "@/lib/schedule";
 
 const KIND_COLOR: Record<string, string> = {
   class: "bg-white border-[#e3e0da]",
@@ -23,7 +23,7 @@ const addDays = (d: Date, n: number) => {
   x.setDate(x.getDate() + n);
   return x;
 };
-const iso = (d: Date) => d.toISOString().slice(0, 10);
+const iso = localIso;
 
 export default async function CalendarPage({
   searchParams,

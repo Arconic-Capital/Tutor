@@ -1,7 +1,7 @@
 import Anthropic from "@anthropic-ai/sdk";
 import { PDFParse } from "pdf-parse";
 import { db } from "@/db";
-import { courses, sources, events, workItems } from "@/db/schema";
+import { courses, sources, events, workItems, syllabusPoints } from "@/db/schema";
 
 export const maxDuration = 180;
 
@@ -16,7 +16,13 @@ interface ExtractedEvent {
   end_time: string | null;
   date: string | null;
   location: string | null;
+  bring: string | null;
   course_id: string | null;
+}
+interface ExtractedPoint {
+  course_id: string | null;
+  module: string;
+  point: string;
 }
 interface ExtractedWork {
   title: string;
@@ -55,39 +61,56 @@ export async function POST(req: Request) {
   const instruction = `You extract a student's schedule and workload from school documents (NSW, Sydney Boys High, ${new Date().getFullYear()}).
 Classify the document, then extract EVERYTHING you can into the two lists:
 
-events — recurring or one-off calendar items (classes, sport, tutoring, activities):
+events — recurring or one-off calendar items (classes, sport, training, tutoring, activities, special events like excursions/carnivals/assemblies/parent nights):
 - Recurring (e.g. timetable rows): set day_of_week (1=Mon..7=Sun), start_time/end_time ("09:05" 24h), week_cycle "A"/"B" if the timetable is a two-week cycle (null if same every week), date null.
 - One-off: set date (YYYY-MM-DD), and times if given.
-- kind: class | sport | tutoring | extracurricular | other.
+- kind: class | sport | tutoring | extracurricular | special | other.
+- bring: anything the student must pack or bring for this event ("sports gear", "calculator", "lab coat", "permission slip", "textbook") — null if nothing stated. Infer the obvious: sport/training → "sports gear"; science pracs → "lab coat"; maths → "calculator".
 - course_id: match school subjects to this list (null if not a subject):
 ${courseList}
 
-work_items — dated work (assessment tasks, exams, homework):
-- kind: assessment | exam | homework | task. due_date YYYY-MM-DD (if only a week number like "Term 3 Week 5" is given, estimate the date: NSW 2026 terms — T1 starts Jan 27, T2 Apr 27, T3 Jul 20, T4 Oct 12; use the Monday of that week and note the estimate in notes).
+work_items — dated work (assessment tasks, exams, homework, exercises to complete):
+- kind: assessment | exam | homework | exercise | task. due_date YYYY-MM-DD (if only a week number like "Term 3 Week 5" is given, estimate the date: NSW 2026 terms — T1 starts Jan 27, T2 Apr 27, T3 Jul 20, T4 Oct 12; use the Monday of that week and note the estimate in notes).
 - weighting: % if stated.
 
-Be exhaustive — extract every row. If the document is unreadable or irrelevant, return empty lists.`;
+syllabus_points — ONLY when the document is a syllabus/course outline: every dot point / outcome, grouped by module name. Use the exact wording. course_id from the list above.
+
+Be exhaustive — extract every row, every dot point. If the document is unreadable or irrelevant, return empty lists.`;
 
   const schema = {
     type: "object" as const,
     properties: {
-      doc_kind: { type: "string", enum: ["timetable", "assessment_schedule", "notice", "other"] },
+      doc_kind: { type: "string", enum: ["timetable", "assessment_schedule", "syllabus", "notice", "other"] },
       events: {
         type: "array",
         items: {
           type: "object",
           properties: {
             title: { type: "string" },
-            kind: { type: "string", enum: ["class", "sport", "tutoring", "extracurricular", "other"] },
+            kind: { type: "string", enum: ["class", "sport", "tutoring", "extracurricular", "special", "other"] },
             day_of_week: { type: ["integer", "null"] },
             week_cycle: { type: ["string", "null"] }, // "A" | "B" | null — enforced by prompt
             start_time: { type: ["string", "null"] },
             end_time: { type: ["string", "null"] },
             date: { type: ["string", "null"] },
             location: { type: ["string", "null"] },
+            bring: { type: ["string", "null"] },
             course_id: { type: ["string", "null"] },
           },
-          required: ["title", "kind", "day_of_week", "week_cycle", "start_time", "end_time", "date", "location", "course_id"],
+          required: ["title", "kind", "day_of_week", "week_cycle", "start_time", "end_time", "date", "location", "bring", "course_id"],
+          additionalProperties: false,
+        },
+      },
+      syllabus_points: {
+        type: "array",
+        items: {
+          type: "object",
+          properties: {
+            course_id: { type: ["string", "null"] },
+            module: { type: "string" },
+            point: { type: "string" },
+          },
+          required: ["course_id", "module", "point"],
           additionalProperties: false,
         },
       },
@@ -97,7 +120,7 @@ Be exhaustive — extract every row. If the document is unreadable or irrelevant
           type: "object",
           properties: {
             title: { type: "string" },
-            kind: { type: "string", enum: ["assessment", "exam", "homework", "task"] },
+            kind: { type: "string", enum: ["assessment", "exam", "homework", "exercise", "task"] },
             due_date: { type: ["string", "null"] },
             weighting: { type: ["integer", "null"] },
             course_id: { type: ["string", "null"] },
@@ -108,7 +131,7 @@ Be exhaustive — extract every row. If the document is unreadable or irrelevant
         },
       },
     },
-    required: ["doc_kind", "events", "work_items"],
+    required: ["doc_kind", "events", "work_items", "syllabus_points"],
     additionalProperties: false,
   };
 
@@ -160,6 +183,7 @@ export async function PUT(req: Request) {
     doc_kind: string;
     events: ExtractedEvent[];
     work_items: ExtractedWork[];
+    syllabus_points?: ExtractedPoint[];
   };
   const validCourse = new Set((await db.select({ id: courses.id }).from(courses)).map((c) => c.id));
   const cid = (id: string | null) => (id && validCourse.has(id) ? id : null);
@@ -182,6 +206,7 @@ export async function PUT(req: Request) {
         endTime: e.end_time,
         date: e.date ? new Date(e.date) : null,
         location: e.location,
+        bring: e.bring,
       })),
     );
   }
@@ -198,5 +223,18 @@ export async function PUT(req: Request) {
       })),
     );
   }
-  return Response.json({ ok: true, events: body.events.length, workItems: body.work_items.length });
+  const points = body.syllabus_points ?? [];
+  if (points.length) {
+    await db.insert(syllabusPoints).values(
+      points
+        .filter((p) => p.course_id && validCourse.has(p.course_id))
+        .map((p, i) => ({
+          courseId: p.course_id!,
+          module: p.module.slice(0, 140),
+          point: p.point.slice(0, 600),
+          sortOrder: i,
+        })),
+    );
+  }
+  return Response.json({ ok: true, events: body.events.length, workItems: body.work_items.length, syllabusPoints: points.length });
 }

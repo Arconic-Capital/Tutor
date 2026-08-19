@@ -11,6 +11,11 @@ export function weekCycleFor(date: Date): "A" | "B" {
   return ((weeks % 2) + 2) % 2 === 0 ? "A" : "B";
 }
 
+/** Local-timezone YYYY-MM-DD (toISOString shifts AEST back a day — never use it for calendar days). */
+export function localIso(d: Date): string {
+  return `${d.getFullYear()}-${String(d.getMonth() + 1).padStart(2, "0")}-${String(d.getDate()).padStart(2, "0")}`;
+}
+
 export function dayOfWeekIso(date: Date): number {
   return date.getDay() === 0 ? 7 : date.getDay(); // 1=Mon..7=Sun
 }
@@ -23,6 +28,8 @@ export interface DayEvent {
   startTime: string | null;
   endTime: string | null;
   location: string | null;
+  bring: string | null;
+  notes: string | null;
 }
 
 const sameDay = (a: Date, b: Date) =>
@@ -47,6 +54,8 @@ export async function eventsForDate(date: Date): Promise<DayEvent[]> {
       startTime: e.startTime ?? (e.date ? new Date(e.date).toTimeString().slice(0, 5) : null),
       endTime: e.endTime,
       location: e.location,
+      bring: e.bring,
+      notes: e.notes,
     }))
     .sort((a, b) => (a.startTime ?? "99").localeCompare(b.startTime ?? "99"));
 }
@@ -103,4 +112,16 @@ export function freeGaps(dayEvents: DayEvent[]): { start: string; end: string; m
   }
   if (toMin("17:30") - cursor >= 40) gaps.push({ start: toStr(cursor), end: "17:30", minutes: toMin("17:30") - cursor });
   return gaps;
+}
+
+/** What to pack tonight for tomorrow: explicit bring-items + sensible inferences. */
+export async function packList(forDate: Date): Promise<string[]> {
+  const evts = await eventsForDate(forDate);
+  const items = new Set<string>();
+  for (const e of evts) {
+    if (e.bring) e.bring.split(/,|;/).forEach((b) => b.trim() && items.add(b.trim()));
+    else if (e.kind === "sport") items.add("sports gear");
+    else if (e.kind === "tutoring") items.add("tutoring homework");
+  }
+  return [...items];
 }

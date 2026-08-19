@@ -148,7 +148,19 @@ export const events = pgTable("events", {
   endTime: text("end_time"),
   date: timestamp("date"), // set for one-off events / dated study blocks
   location: text("location"),
+  bring: text("bring"), // what to pack: "sports gear", "calculator, lab coat"…
+  workItemId: uuid("work_item_id").references(() => workItems.id, { onDelete: "cascade" }), // study blocks link to what they prep
   notes: text("notes"),
+  createdAt: timestamp("created_at").notNull().defaultNow(),
+});
+
+// Structured syllabus content per course (uploaded syllabus docs → dot points)
+export const syllabusPoints = pgTable("syllabus_points", {
+  id: uuid("id").defaultRandom().primaryKey(),
+  courseId: text("course_id").notNull().references(() => courses.id),
+  module: text("module").notNull(),
+  point: text("point").notNull(),
+  sortOrder: integer("sort_order").notNull().default(0),
   createdAt: timestamp("created_at").notNull().defaultNow(),
 });
 

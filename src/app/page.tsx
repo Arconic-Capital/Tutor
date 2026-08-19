@@ -6,7 +6,8 @@ import { eq } from "drizzle-orm";
 import { getCurrentUserId } from "@/lib/auth/current-user";
 import Shell, { getMyCourses } from "@/components/shell";
 import AskBar from "@/components/ask-bar";
-import { eventsForDate, upcomingWork, freeGaps, weekCycleFor } from "@/lib/schedule";
+import { eventsForDate, upcomingWork, freeGaps, weekCycleFor, packList } from "@/lib/schedule";
+import PrepButton from "@/components/prep-button";
 
 const KIND_STYLES: Record<string, string> = {
   class: "border-[#eeece8] bg-white",
@@ -24,10 +25,12 @@ export default async function Today() {
   if (!me?.yearLevel) redirect("/onboarding");
 
   const now = new Date();
-  const [my, dayEvents, work] = await Promise.all([
+  const tomorrow = new Date(now.getTime() + 86_400_000);
+  const [my, dayEvents, work, pack] = await Promise.all([
     getMyCourses(userId),
     eventsForDate(now),
     upcomingWork(45),
+    packList(tomorrow),
   ]);
   const gaps = freeGaps(dayEvents);
   const cycle = weekCycleFor(now);
@@ -108,10 +111,21 @@ export default async function Today() {
           </div>
         )}
 
+        {/* pack for tomorrow */}
+        {pack.length > 0 && (
+          <div className="mt-6 rounded-xl bg-[#fbf0dc]/60 px-4 py-3 text-[13.5px]">
+            <span className="font-semibold text-[#8a5a12]">Pack tonight for tomorrow:</span>{" "}
+            <span className="text-[#6e6862]">{pack.join(" · ")}</span>
+          </div>
+        )}
+
         {/* tonight */}
         {tonight.length > 0 && (
           <div className="mt-8">
-            <p className="mb-2 text-[11px] font-semibold uppercase tracking-wide text-[#b6b1aa]">Most pressing</p>
+            <div className="mb-2 flex items-center justify-between">
+              <p className="text-[11px] font-semibold uppercase tracking-wide text-[#b6b1aa]">Most pressing</p>
+              <PrepButton />
+            </div>
             <ul>
               {tonight.map((w) => (
                 <li key={w.id} className="flex items-baseline justify-between gap-4 border-t border-[#eeece8] py-3 first:border-t-0">
