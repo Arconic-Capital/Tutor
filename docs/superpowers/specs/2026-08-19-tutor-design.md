@@ -1,7 +1,30 @@
 # Tutor — Design Spec
 
 **Date:** 2026-08-19
-**Status:** Approved for planning
+**Status:** Approved for planning — **superseded in part by the v2 Addendum below (chat-first pivot)**
+
+## v2 Addendum — chat-first AI tutor (approved 2026-08-19)
+
+The product pivoted from library-first to **chat-first AI tutor**. Approved via wireframes v6 (`public/ui-drafts.html`, artifact "Tutor — Wireframes v6").
+
+**Information architecture:** a persistent subject bar on every screen (`All · <subject tabs> · Plan · profile`). Inside a subject, one sub-nav: **Tutor · Syllabus · Repository · Artifacts · Forum**. Only two cross-subject screens: Home (ask bar + today's plan + one activity row per subject) and Plan.
+
+**New/changed capabilities (all UI per v6 wireframes):**
+1. **Tutor chat** — per-subject conversations; every answer cites syllabus dot point + source resources; inline actions ("quiz me", "make flashcards"). Voice mode via ElevenLabs (conversational tutoring + speaking-exam practice for languages).
+2. **Preloaded content** — NESA syllabi (all dot points), 10+ years of past HSC papers + marking guidelines (links, never rehosted), sample papers, reference sheets. Nothing for students to upload to get value on day one. Year 12 seeded deepest.
+3. **Study plan** — generated from syllabus + trial date + per-dot-point mastery; re-plans as quiz results come in.
+4. **Syllabus explorer** — mastery per dot point (progress rings), per-point Learn/Quiz/past questions.
+5. **Repository** — folder tree (subject → module → type); **community priority sort** (opens + saves + upvotes + used-in-AI, time-decayed); uploads auto-filed by AI with uploader confirmation; resource preview with upvotes + comment threads.
+6. **Artifacts** — flashcards, cheat sheets, practice papers, quizzes, essay plans, formula sheets, vocab decks, timelines; shared, commentable, duplicate-and-edit.
+7. **Exam predictor** — topic-frequency analysis over past papers → likelihood-ranked predictions → generates full predicted papers.
+8. **HSC marker** — marks pasted/photographed answers against NESA marking guidelines + band descriptors; rubric-level feedback.
+9. **Design system** — "calm v6": one system sans, sentence case, hairlines, single blue accent, chocolate brand mark; white, minimal.
+
+**User journey** (agreed): discovery via shared artifacts → 3-minute onboarding (year → subjects → trial date → first answer) → homework-help habit → adaptive weekly plan → trials crunch (predictor/marker/cheat sheets) → post-HSC "donate your notes" legacy loop.
+
+The remainder of the original spec (auth, taxonomy, stack, copyright posture, moderation) stands unchanged.
+
+---
 
 ## 1. Overview
 

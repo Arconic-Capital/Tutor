@@ -1,0 +1,407 @@
+[
+ {
+  "course_id": "english-advanced",
+  "title": "English Advanced HSC exam papers (all years 2019-2025)",
+  "url": "https://www.nsw.gov.au/education-and-training/nesa/curriculum/hsc-exam-papers/english-advanced",
+  "year": null,
+  "resource_type": "past_paper",
+  "source": "NESA",
+  "notes": "Verified (HTTP 200). Landing page listing exam packs for 2019-2025; each pack page includes exam paper PDFs, marking guidelines PDFs and marker feedback. Links to archive for older years."
+ },
+ {
+  "course_id": "english-advanced",
+  "title": "English Advanced 2025 HSC exam pack",
+  "url": "https://www.nsw.gov.au/education-and-training/nesa/curriculum/hsc-exam-papers/english-advanced/2025",
+  "year": 2025,
+  "resource_type": "past_paper",
+  "source": "NESA",
+  "notes": "Per-year URL pattern verified for 2025 packs on sibling courses. Contains Papers 1 and 2, marking guidelines and marker feedback on one page."
+ },
+ {
+  "course_id": "english-advanced",
+  "title": "English Advanced 2024 HSC exam pack",
+  "url": "https://www.nsw.gov.au/education-and-training/nesa/curriculum/hsc-exam-papers/english-advanced/2024",
+  "year": 2024,
+  "resource_type": "past_paper",
+  "source": "NESA",
+  "notes": "Verified (HTTP 200). Paper 1 and Paper 2 PDFs plus marking guidelines and detailed marker feedback by section (Common Module, Modules A/B/C)."
+ },
+ {
+  "course_id": "english-advanced",
+  "title": "English Advanced 2024 HSC marking guidelines and marker feedback",
+  "url": "https://www.nsw.gov.au/education-and-training/nesa/curriculum/hsc-exam-papers/english-advanced/2024",
+  "year": 2024,
+  "resource_type": "marking_guidelines",
+  "source": "NESA",
+  "notes": "Marking guidelines PDFs (Paper 1 and Paper 2) and examiner feedback are hosted on the same exam pack page; same pattern applies for every year 2019-2025."
+ },
+ {
+  "course_id": "english-advanced",
+  "title": "English Advanced 2023 HSC exam pack",
+  "url": "https://www.nsw.gov.au/education-and-training/nesa/curriculum/hsc-exam-papers/english-advanced/2023",
+  "year": 2023,
+  "resource_type": "past_paper",
+  "source": "NESA",
+  "notes": "URL pattern verified via landing page listing 2019-2025."
+ },
+ {
+  "course_id": "english-advanced",
+  "title": "English Advanced HSC exam papers archive (2014-2018)",
+  "url": "https://www.nsw.gov.au/education-and-training/nesa/curriculum/hsc-exam-papers/english-advanced-archive",
+  "year": null,
+  "resource_type": "past_paper",
+  "source": "NESA",
+  "notes": "Verified (HTTP 200). Archived packs 2014-2018 under the previous (pre-2019) syllabus; per-year pages at .../english-advanced-archive/{year}. NESA notes content may not match current modules."
+ },
+ {
+  "course_id": "english-advanced",
+  "title": "English Advanced Stage 6 Syllabus (2017)",
+  "url": "https://www.nsw.gov.au/education-and-training/nesa/curriculum/english/english-advanced-stage-6-2017",
+  "year": null,
+  "resource_type": "syllabus",
+  "source": "NESA",
+  "notes": "Verified (HTTP 200). Current syllabus for HSC cohorts through 2026; page links to the Stage 6 Prescriptions document. New English Advanced 11-12 Syllabus (2024) applies to HSC from 2027."
+ },
+ {
+  "course_id": "english-advanced",
+  "title": "English Stage 6 Prescriptions: Modules, Electives and Texts 2019-2026 (prescribed texts PDF)",
+  "url": "https://www.nsw.gov.au/sites/default/files/noindex/2025-04/2024-english-prescriptions-2019-2026-english-stage-6-prescriptions-modules-electives-and-texts.pdf",
+  "year": null,
+  "resource_type": "reference",
+  "source": "NESA",
+  "notes": "Official prescribed texts list for HSC 2019-2026 (all English courses incl. Advanced). Deep PDF link may move; stable gateway is the English Advanced syllabus page above, which links to it."
+ },
+ {
+  "course_id": "english-advanced",
+  "title": "NSW Curriculum: English learning area (new syllabuses and HSC English prescriptions 2027-2030)",
+  "url": "https://curriculum.nsw.edu.au/learning-areas/english",
+  "year": null,
+  "resource_type": "reference",
+  "source": "NESA",
+  "notes": "Official NSW Curriculum site; hosts the English 11-12 (2024) syllabuses and the new HSC English prescriptions applying 2027-2030."
+ },
+ {
+  "course_id": "english-advanced",
+  "title": "English Advanced HSC standards materials (banded student work samples)",
+  "url": "https://www.nsw.gov.au/education-and-training/nesa/curriculum/hsc-standards/english-advanced",
+  "year": null,
+  "resource_type": "other",
+  "source": "NESA",
+  "notes": "Sample student responses at different performance band borderlines. URL pattern verified via Modern History equivalent (HTTP 200)."
+ },
+ {
+  "course_id": "economics",
+  "title": "Economics HSC exam papers (all years 2015-2025)",
+  "url": "https://www.nsw.gov.au/education-and-training/nesa/curriculum/hsc-exam-papers/economics",
+  "year": null,
+  "resource_type": "past_paper",
+  "source": "NESA",
+  "notes": "Verified (HTTP 200). Lists exam packs 2015-2025 on one landing page (syllabus unchanged since 2009, so no separate archive). Each pack includes paper, marking guidelines and marker feedback."
+ },
+ {
+  "course_id": "economics",
+  "title": "Economics 2025 HSC exam pack",
+  "url": "https://www.nsw.gov.au/education-and-training/nesa/curriculum/hsc-exam-papers/economics/2025",
+  "year": 2025,
+  "resource_type": "past_paper",
+  "source": "NESA",
+  "notes": "Per-year URL pattern verified; listed on the verified landing page."
+ },
+ {
+  "course_id": "economics",
+  "title": "Economics 2024 HSC exam pack",
+  "url": "https://www.nsw.gov.au/education-and-training/nesa/curriculum/hsc-exam-papers/economics/2024",
+  "year": 2024,
+  "resource_type": "past_paper",
+  "source": "NESA",
+  "notes": "Verified (HTTP 200). Exam paper PDF (1.1MB), marking guidelines PDF, and marker feedback for Q21-28 on the same page."
+ },
+ {
+  "course_id": "economics",
+  "title": "Economics 2024 HSC marking guidelines and marker feedback",
+  "url": "https://www.nsw.gov.au/education-and-training/nesa/curriculum/hsc-exam-papers/economics/2024",
+  "year": 2024,
+  "resource_type": "marking_guidelines",
+  "source": "NESA",
+  "notes": "Guidelines PDF and section-by-section examiner feedback hosted on the exam pack page; same pattern for all years 2015-2025."
+ },
+ {
+  "course_id": "economics",
+  "title": "Economics 2023 HSC exam pack",
+  "url": "https://www.nsw.gov.au/education-and-training/nesa/curriculum/hsc-exam-papers/economics/2023",
+  "year": 2023,
+  "resource_type": "past_paper",
+  "source": "NESA",
+  "notes": "URL pattern verified via landing page."
+ },
+ {
+  "course_id": "economics",
+  "title": "Economics Stage 6 Syllabus (2009)",
+  "url": "https://www.nsw.gov.au/education-and-training/nesa/curriculum/hsie/economics-stage-6-2009",
+  "year": null,
+  "resource_type": "syllabus",
+  "source": "NESA",
+  "notes": "Verified (HTTP 200). Current syllabus (HSC course: global economy, Australia's place, economic issues, policies). New Economics 11-12 Syllabus (2025) implements from 2027."
+ },
+ {
+  "course_id": "economics",
+  "title": "Economics HSC standards materials (banded student work samples)",
+  "url": "https://www.nsw.gov.au/education-and-training/nesa/curriculum/hsc-standards/economics",
+  "year": null,
+  "resource_type": "other",
+  "source": "NESA",
+  "notes": "Sample student responses at performance band borderlines. Found via NESA search results; pattern verified on sibling course."
+ },
+ {
+  "course_id": "economics",
+  "title": "RBA Education: Explainers",
+  "url": "https://www.rba.gov.au/education/resources/explainers/",
+  "year": null,
+  "resource_type": "reference",
+  "source": "RBA",
+  "notes": "Official Reserve Bank of Australia explainers on monetary policy, inflation, economic growth, exchange rates - directly maps to HSC Economics topics. RBA returns 403 to automated fetchers but resolves in browsers; URL corroborated by multiple search results."
+ },
+ {
+  "course_id": "economics",
+  "title": "RBA Education hub (student resources, videos, teacher materials)",
+  "url": "https://www.rba.gov.au/education/",
+  "year": null,
+  "resource_type": "reference",
+  "source": "RBA",
+  "notes": "RBA's education landing page with videos, digital interactives and materials aimed at senior secondary economics. Blocks bot fetches (403) but is the canonical, long-stable URL."
+ },
+ {
+  "course_id": "economics",
+  "title": "Australian Bureau of Statistics",
+  "url": "https://www.abs.gov.au/",
+  "year": null,
+  "resource_type": "reference",
+  "source": "ABS",
+  "notes": "Official source for CPI, labour force, national accounts and trade data used in HSC Economics essays and case studies."
+ },
+ {
+  "course_id": "business-studies",
+  "title": "Business Studies HSC exam papers (all years 2015-2025)",
+  "url": "https://www.nsw.gov.au/education-and-training/nesa/curriculum/hsc-exam-papers/business-studies",
+  "year": null,
+  "resource_type": "past_paper",
+  "source": "NESA",
+  "notes": "Verified (HTTP 200). Lists exam packs 2015-2025 (syllabus unchanged since 2010, no separate archive). Each pack includes paper, marking guidelines and marker feedback."
+ },
+ {
+  "course_id": "business-studies",
+  "title": "Business Studies 2025 HSC exam pack",
+  "url": "https://www.nsw.gov.au/education-and-training/nesa/curriculum/hsc-exam-papers/business-studies/2025",
+  "year": 2025,
+  "resource_type": "past_paper",
+  "source": "NESA",
+  "notes": "Listed on verified landing page; per-year URL pattern verified for this course (2024 fetched directly)."
+ },
+ {
+  "course_id": "business-studies",
+  "title": "Business Studies 2024 HSC exam pack",
+  "url": "https://www.nsw.gov.au/education-and-training/nesa/curriculum/hsc-exam-papers/business-studies/2024",
+  "year": 2024,
+  "resource_type": "past_paper",
+  "source": "NESA",
+  "notes": "Verified (HTTP 200). Exam paper PDF, marking guidelines PDF (946KB), and marker feedback for Q21-27."
+ },
+ {
+  "course_id": "business-studies",
+  "title": "Business Studies 2024 HSC marking guidelines and marker feedback",
+  "url": "https://www.nsw.gov.au/education-and-training/nesa/curriculum/hsc-exam-papers/business-studies/2024",
+  "year": 2024,
+  "resource_type": "marking_guidelines",
+  "source": "NESA",
+  "notes": "Guidelines PDF and per-question examiner feedback on the exam pack page; same pattern for all years 2015-2025."
+ },
+ {
+  "course_id": "business-studies",
+  "title": "Business Studies 2023 HSC exam pack",
+  "url": "https://www.nsw.gov.au/education-and-training/nesa/curriculum/hsc-exam-papers/business-studies/2023",
+  "year": 2023,
+  "resource_type": "past_paper",
+  "source": "NESA",
+  "notes": "URL pattern verified via landing page."
+ },
+ {
+  "course_id": "business-studies",
+  "title": "Business Studies Stage 6 Syllabus (2010)",
+  "url": "https://www.nsw.gov.au/education-and-training/nesa/curriculum/hsie/business-studies-stage-6-2010",
+  "year": null,
+  "resource_type": "syllabus",
+  "source": "NESA",
+  "notes": "Verified (HTTP 200). Current syllabus; HSC course covers operations, marketing, finance, human resources. Includes sample assessment schedules and scope/sequences."
+ },
+ {
+  "course_id": "business-studies",
+  "title": "Business Studies HSC standards materials (banded student work samples)",
+  "url": "https://www.nsw.gov.au/education-and-training/nesa/curriculum/hsc-standards/business-studies",
+  "year": null,
+  "resource_type": "other",
+  "source": "NESA",
+  "notes": "Sample responses at performance band borderlines; hsc-standards/{course} pattern verified on Modern History and Economics."
+ },
+ {
+  "course_id": "legal-studies",
+  "title": "Legal Studies HSC exam papers (all years 2015-2025)",
+  "url": "https://www.nsw.gov.au/education-and-training/nesa/curriculum/hsc-exam-papers/legal-studies",
+  "year": null,
+  "resource_type": "past_paper",
+  "source": "NESA",
+  "notes": "Verified (HTTP 200). Lists exam packs 2015-2025 (syllabus unchanged since 2009, no separate archive). Each pack includes paper, marking guidelines and marker feedback."
+ },
+ {
+  "course_id": "legal-studies",
+  "title": "Legal Studies 2025 HSC exam pack",
+  "url": "https://www.nsw.gov.au/education-and-training/nesa/curriculum/hsc-exam-papers/legal-studies/2025",
+  "year": 2025,
+  "resource_type": "past_paper",
+  "source": "NESA",
+  "notes": "Verified (HTTP 200). Exam paper PDF, marking guidelines, and detailed marker feedback for Sections II-III (Crime, Human Rights, options)."
+ },
+ {
+  "course_id": "legal-studies",
+  "title": "Legal Studies 2024 HSC exam pack",
+  "url": "https://www.nsw.gov.au/education-and-training/nesa/curriculum/hsc-exam-papers/legal-studies/2024",
+  "year": 2024,
+  "resource_type": "past_paper",
+  "source": "NESA",
+  "notes": "Listed on verified landing page; same pack structure (paper + guidelines + feedback)."
+ },
+ {
+  "course_id": "legal-studies",
+  "title": "Legal Studies 2025 HSC marking guidelines and marker feedback",
+  "url": "https://www.nsw.gov.au/education-and-training/nesa/curriculum/hsc-exam-papers/legal-studies/2025",
+  "year": 2025,
+  "resource_type": "marking_guidelines",
+  "source": "NESA",
+  "notes": "Guidelines and examiner feedback hosted on the exam pack page; same pattern for all years 2015-2025."
+ },
+ {
+  "course_id": "legal-studies",
+  "title": "Legal Studies 2023 HSC exam pack",
+  "url": "https://www.nsw.gov.au/education-and-training/nesa/curriculum/hsc-exam-papers/legal-studies/2023",
+  "year": 2023,
+  "resource_type": "past_paper",
+  "source": "NESA",
+  "notes": "URL pattern verified via landing page."
+ },
+ {
+  "course_id": "legal-studies",
+  "title": "Legal Studies Stage 6 Syllabus (2009)",
+  "url": "https://www.nsw.gov.au/education-and-training/nesa/curriculum/hsie/legal-studies-stage-6-2009",
+  "year": null,
+  "resource_type": "syllabus",
+  "source": "NESA",
+  "notes": "Current syllabus; URL confirmed via NESA search results (same nsw.gov.au HSIE syllabus pattern verified for Economics and Business Studies)."
+ },
+ {
+  "course_id": "legal-studies",
+  "title": "Legal Studies HSC standards materials (banded student work samples)",
+  "url": "https://www.nsw.gov.au/education-and-training/nesa/curriculum/hsc-standards/legal-studies",
+  "year": null,
+  "resource_type": "other",
+  "source": "NESA",
+  "notes": "Sample responses at performance band borderlines; hsc-standards/{course} pattern verified on sibling courses."
+ },
+ {
+  "course_id": "legal-studies",
+  "title": "AustLII - Australasian Legal Information Institute",
+  "url": "https://www.austlii.edu.au/",
+  "year": null,
+  "resource_type": "reference",
+  "source": "AustLII",
+  "notes": "Free, authoritative full-text case law and legislation database (UTS/UNSW) for citing cases and statutes in Legal Studies responses. Returns 403 to automated fetchers but resolves normally in browsers."
+ },
+ {
+  "course_id": "legal-studies",
+  "title": "NSW Legislation (official)",
+  "url": "https://legislation.nsw.gov.au/",
+  "year": null,
+  "resource_type": "reference",
+  "source": "NSW Government",
+  "notes": "Official consolidated NSW Acts and regulations, maintained by the NSW Parliamentary Counsel's Office - primary source for legislation cited in Crime and options topics."
+ },
+ {
+  "course_id": "modern-history",
+  "title": "Modern History HSC exam papers (all years 2019-2025)",
+  "url": "https://www.nsw.gov.au/education-and-training/nesa/curriculum/hsc-exam-papers/modern-history",
+  "year": null,
+  "resource_type": "past_paper",
+  "source": "NESA",
+  "notes": "Landing page for exam packs under the 2017 syllabus (2019-2025); same verified nsw.gov.au NESA pattern as all other courses. Each pack includes paper, marking guidelines and marker feedback."
+ },
+ {
+  "course_id": "modern-history",
+  "title": "Modern History 2025 HSC exam pack",
+  "url": "https://www.nsw.gov.au/education-and-training/nesa/curriculum/hsc-exam-papers/modern-history/2025",
+  "year": 2025,
+  "resource_type": "past_paper",
+  "source": "NESA",
+  "notes": "Verified (HTTP 200). Exam paper PDF (1.39MB), marking guidelines PDF, and marker feedback across Power and Authority, National Studies, Peace and Conflict, Change in the Modern World."
+ },
+ {
+  "course_id": "modern-history",
+  "title": "Modern History 2024 HSC exam pack",
+  "url": "https://www.nsw.gov.au/education-and-training/nesa/curriculum/hsc-exam-papers/modern-history/2024",
+  "year": 2024,
+  "resource_type": "past_paper",
+  "source": "NESA",
+  "notes": "Per-year URL pattern verified for this course (2025 fetched directly)."
+ },
+ {
+  "course_id": "modern-history",
+  "title": "Modern History 2025 HSC marking guidelines and marker feedback",
+  "url": "https://www.nsw.gov.au/education-and-training/nesa/curriculum/hsc-exam-papers/modern-history/2025",
+  "year": 2025,
+  "resource_type": "marking_guidelines",
+  "source": "NESA",
+  "notes": "Guidelines and section-by-section examiner feedback hosted on the exam pack page; same pattern for all years 2019-2025."
+ },
+ {
+  "course_id": "modern-history",
+  "title": "Modern History 2023 HSC exam pack",
+  "url": "https://www.nsw.gov.au/education-and-training/nesa/curriculum/hsc-exam-papers/modern-history/2023",
+  "year": 2023,
+  "resource_type": "past_paper",
+  "source": "NESA",
+  "notes": "URL pattern verified via sibling pages."
+ },
+ {
+  "course_id": "modern-history",
+  "title": "Modern History HSC exam papers archive (2014-2018)",
+  "url": "https://www.nsw.gov.au/education-and-training/nesa/curriculum/hsc-exam-papers/modern-history-archive",
+  "year": null,
+  "resource_type": "past_paper",
+  "source": "NESA",
+  "notes": "Verified (HTTP 200). Archived packs 2014-2018 under the previous syllabus; per-year pages at .../modern-history-archive/{year}. NESA notes content may not match the current syllabus."
+ },
+ {
+  "course_id": "modern-history",
+  "title": "Modern History Stage 6 Syllabus (2017)",
+  "url": "https://www.nsw.gov.au/education-and-training/nesa/curriculum/hsie/modern-history-stage-6-2017",
+  "year": null,
+  "resource_type": "syllabus",
+  "source": "NESA",
+  "notes": "Current syllabus; URL confirmed via NESA search results (same verified HSIE syllabus pattern). New History 11-12 syllabuses implement later; check curriculum.nsw.edu.au for transition dates."
+ },
+ {
+  "course_id": "modern-history",
+  "title": "Modern History HSC standards materials (banded student work samples)",
+  "url": "https://www.nsw.gov.au/education-and-training/nesa/curriculum/hsc-standards/modern-history",
+  "year": null,
+  "resource_type": "other",
+  "source": "NESA",
+  "notes": "Verified (HTTP 200). Student response samples at performance band borderlines, organised by exam section (Power and Authority, National Studies, Peace and Conflict, Change in the Modern World)."
+ },
+ {
+  "course_id": "modern-history",
+  "title": "Anzac Portal (Department of Veterans' Affairs)",
+  "url": "https://anzacportal.dva.gov.au/",
+  "year": null,
+  "resource_type": "reference",
+  "source": "DVA",
+  "notes": "Official Australian Government histories, primary sources and educational resources on WWI, WWII and later conflicts - useful for Power and Authority and Peace and Conflict topics."
+ }
+]

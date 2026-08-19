@@ -1,0 +1,553 @@
+<title>Tutor — Wireframes v6</title>
+<style>
+  /* v6 — calm. One face, sentence case, hairlines, one accent. Same functionality, half the noise. */
+  :root {
+    --bg: #FFFFFF; --ink: #1A1815; --muted: #8A857E; --faint: #B6B1AA;
+    --line: #EEECE8; --hover: #FAF9F7;
+    --blue: #2777C2; --blue-soft: #F0F6FC;
+    --choc: #40342B;
+    --warn: #9A6A1B; --good: #3B7A57; --bad: #A44A3C;
+    --r: 8px;
+  }
+  * { box-sizing: border-box; }
+  body { background: var(--bg); color: var(--ink); margin: 0;
+    font: 15px/1.6 -apple-system, "Helvetica Neue", "Segoe UI", system-ui, sans-serif;
+    -webkit-font-smoothing: antialiased; }
+  .wrap { max-width: 1120px; margin: 0 auto; padding: 64px 24px 110px; }
+
+  header.page h1 { font-size: 40px; font-weight: 650; letter-spacing: -.03em; margin: 0 0 10px; line-height: 1.1; text-wrap: balance; }
+  header.page p { color: var(--muted); max-width: 64ch; margin: 0; font-size: 16px; }
+
+  section.screen { margin-top: 96px; }
+  .shead { display: flex; align-items: baseline; gap: 12px; margin-bottom: 6px; }
+  .shead .num { font-size: 12px; font-weight: 600; color: var(--faint); font-variant-numeric: tabular-nums; }
+  .shead h2 { font-size: 20px; font-weight: 650; margin: 0; letter-spacing: -.015em; }
+  .notes { color: var(--muted); font-size: 13.5px; margin: 0 0 18px; padding: 0; list-style: none; display: flex; flex-wrap: wrap; gap: 4px 20px; }
+
+  .frame { border: 1px solid var(--line); border-radius: 12px; overflow: hidden; }
+  .bbar { display: flex; align-items: center; gap: 6px; padding: 10px 16px; border-bottom: 1px solid var(--line); }
+  .bbar i { width: 8px; height: 8px; border-radius: 50%; background: var(--line); }
+  .bbar .url { margin-left: 10px; font-size: 12px; color: var(--faint); }
+
+  /* chrome */
+  .topbar { display: flex; align-items: center; justify-content: space-between; padding: 14px 28px; gap: 16px; }
+  .brand { font-weight: 700; font-size: 16px; letter-spacing: -.02em; display: flex; align-items: center; gap: 8px; white-space: nowrap; }
+  .mark { width: 14px; height: 14px; border-radius: 4px; background: var(--choc); position: relative; flex: none; }
+  .mark::after { content: ""; position: absolute; right: -3px; bottom: -3px; width: 7px; height: 7px; border-radius: 2px; background: var(--blue); }
+  .subjects { display: flex; gap: 4px; flex: 1; justify-content: center; flex-wrap: wrap; }
+  .subjtab { padding: 6px 14px; font-size: 14px; color: var(--muted); border-radius: 999px; }
+  .subjtab.on { color: var(--ink); background: var(--blue-soft); font-weight: 600; }
+  .right { display: flex; gap: 16px; align-items: center; font-size: 14px; color: var(--muted); white-space: nowrap; }
+  .avatar { width: 26px; height: 26px; border-radius: 50%; background: var(--choc); color: #fff; font-size: 11px; font-weight: 600; line-height: 26px; text-align: center; }
+  .subnav { display: flex; gap: 26px; padding: 0 28px; border-bottom: 1px solid var(--line); font-size: 14px; color: var(--muted); }
+  .subnav span { padding: 10px 0 12px; }
+  .subnav .on { color: var(--ink); font-weight: 600; box-shadow: inset 0 -2px var(--ink); }
+
+  .btn { display: inline-block; background: var(--ink); color: #fff; padding: 10px 18px; border-radius: 999px; font-size: 13.5px; font-weight: 600; }
+  .btn.ghost { background: var(--bg); color: var(--ink); border: 1px solid var(--line); }
+  .input { border: 1px solid var(--line); border-radius: var(--r); padding: 10px 14px; color: var(--faint); font-size: 14px; }
+  .pill { display: inline-block; font-size: 12.5px; font-weight: 500; padding: 5px 11px; border-radius: 999px; background: var(--hover); color: var(--muted); }
+  .pill.blue { background: var(--blue-soft); color: var(--blue); font-weight: 600; }
+  .meta { font-size: 12.5px; color: var(--faint); }
+  .muted { color: var(--muted); }
+  .kicker { font-size: 12px; font-weight: 600; color: var(--faint); text-transform: none; margin: 0 0 10px; }
+
+  /* 01 onboarding */
+  .onbgrid { display: grid; grid-template-columns: 1fr 1fr; }
+  .onbcell { padding: 32px; }
+  .onbcell + .onbcell { border-left: 1px solid var(--line); }
+  .onbrow2 { border-top: 1px solid var(--line); }
+  .onbcell h3 { margin: 0 0 16px; font-size: 18px; font-weight: 650; letter-spacing: -.015em; }
+  .yearrow { display: flex; gap: 10px; }
+  .yearbtn { flex: 1; text-align: center; border: 1px solid var(--line); border-radius: 10px; padding: 18px 4px; }
+  .yearbtn b { font-size: 22px; display: block; font-weight: 650; }
+  .yearbtn small { font-size: 12px; color: var(--faint); }
+  .yearbtn.sel { border-color: var(--blue); background: var(--blue-soft); }
+  .subjpick { display: flex; flex-wrap: wrap; gap: 8px; }
+  .sp { border: 1px solid var(--line); border-radius: 999px; padding: 7px 14px; font-size: 13.5px; color: var(--muted); }
+  .sp.sel { border-color: var(--blue); background: var(--blue-soft); color: var(--blue); font-weight: 600; }
+
+  /* 02 home */
+  .home { padding: 48px 28px 44px; }
+  .greet { text-align: center; font-size: 26px; font-weight: 650; letter-spacing: -.02em; margin: 0 0 6px; }
+  .subgreet { text-align: center; color: var(--muted); font-size: 14px; margin-bottom: 28px; }
+  .ask { max-width: 580px; margin: 0 auto; border: 1px solid var(--line); border-radius: 14px; padding: 18px; box-shadow: 0 1px 3px rgba(26,24,21,.05); }
+  .ask .ph { color: var(--faint); font-size: 15px; }
+  .askrow { display: flex; align-items: center; justify-content: space-between; margin-top: 18px; }
+  .askrow .g { display: flex; gap: 8px; }
+  .iconb { width: 32px; height: 32px; border-radius: 50%; display: grid; place-items: center; font-size: 13px; color: var(--muted); background: var(--hover); }
+  .iconb.mic { background: var(--blue-soft); color: var(--blue); }
+  .iconb.send { background: var(--ink); color: #fff; }
+  .homeblock { max-width: 580px; margin: 36px auto 0; }
+  .hitem { display: flex; justify-content: space-between; align-items: center; padding: 12px 2px; font-size: 14px; gap: 12px; border-top: 1px solid var(--line); }
+  .hitem:first-of-type { border-top: none; }
+  .hitem .go { color: var(--faint); }
+  .hitem b { font-weight: 600; }
+
+  /* 03 tutor */
+  .chatwrap { display: grid; grid-template-columns: 1.5fr 1fr; min-height: 400px; }
+  .chat { padding: 26px 28px; display: flex; flex-direction: column; gap: 14px; }
+  .msg { max-width: 82%; padding: 12px 16px; border-radius: 14px; font-size: 14px; }
+  .msg.user { align-self: flex-end; background: var(--hover); }
+  .msg.ai { align-self: flex-start; padding-left: 0; }
+  .srcline { font-size: 12px; color: var(--faint); margin-top: 8px; }
+  .srcline a { color: var(--blue); text-decoration: none; }
+  .chat .actions { display: flex; gap: 8px; flex-wrap: wrap; }
+  .chatask { margin-top: auto; border: 1px solid var(--line); border-radius: 999px; padding: 11px 18px; color: var(--faint); font-size: 14px; display: flex; justify-content: space-between; }
+  .sidectx { border-left: 1px solid var(--line); padding: 26px; }
+  .ctxitem { padding: 9px 0; font-size: 13.5px; display: flex; justify-content: space-between; gap: 8px; border-top: 1px solid var(--line); }
+  .ctxitem:first-of-type { border-top: none; }
+
+  /* 04 syllabus */
+  .syl { padding: 26px 28px; }
+  .sylhead { display: flex; justify-content: space-between; align-items: baseline; flex-wrap: wrap; gap: 10px; }
+  .modrow { display: flex; gap: 6px; margin: 14px 0 8px; flex-wrap: wrap; }
+  .dot { border-top: 1px solid var(--line); padding: 14px 2px; display: flex; align-items: center; gap: 16px; }
+  .ring { width: 30px; height: 30px; border-radius: 50%; flex: none; display: grid; place-items: center; font-size: 10.5px; font-weight: 600; color: var(--muted); }
+  .r75 { background: conic-gradient(var(--blue) 270deg, var(--line) 0); } .r25 { background: conic-gradient(var(--blue) 90deg, var(--line) 0); } .r0 { background: var(--line); }
+  .ring i { width: 24px; height: 24px; border-radius: 50%; background: var(--bg); display: grid; place-items: center; font-style: normal; }
+  .dot .t { flex: 1; font-size: 14px; }
+  .dot .t small { display: block; color: var(--faint); font-size: 12px; margin-top: 2px; }
+  .dot .go { color: var(--faint); font-size: 13px; }
+
+  /* 05 repository */
+  .repo { display: grid; grid-template-columns: 240px 1fr; min-height: 420px; }
+  .tree { border-right: 1px solid var(--line); padding: 22px 20px; font-size: 13.5px; }
+  .tree .subj { font-weight: 650; margin: 14px 0 4px; }
+  .tree .subj:first-child { margin-top: 0; }
+  .tree ul { list-style: none; margin: 0; padding: 0; }
+  .tree li { padding: 5px 10px; color: var(--muted); border-radius: var(--r); }
+  .tree li.on { color: var(--blue); font-weight: 600; background: var(--blue-soft); }
+  .tree .n { float: right; color: var(--faint); font-variant-numeric: tabular-nums; }
+  .repolist { padding: 22px 28px; }
+  .repohead { display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 10px; }
+  .sortrow { display: flex; gap: 6px; margin: 12px 0 4px; }
+  .file { border-top: 1px solid var(--line); padding: 13px 2px; display: flex; align-items: center; gap: 14px; }
+  .file:first-of-type { border-top: none; }
+  .ficon { width: 34px; height: 34px; border-radius: var(--r); background: var(--hover); display: grid; place-items: center; font-size: 14px; flex: none; }
+  .file .t { flex: 1; font-weight: 550; font-size: 14px; }
+  .file .t small { display: block; font-weight: 400; color: var(--faint); font-size: 12px; margin-top: 1px; }
+  .file .stats { font-size: 12.5px; color: var(--faint); white-space: nowrap; font-variant-numeric: tabular-nums; }
+  .autofile { margin-top: 18px; background: var(--blue-soft); border-radius: 10px; padding: 12px 16px; font-size: 13px; color: var(--blue); display: flex; justify-content: space-between; gap: 10px; flex-wrap: wrap; }
+
+  /* 06 preview */
+  .preview { display: grid; grid-template-columns: 1.3fr 1fr; min-height: 420px; }
+  .pdoc { border-right: 1px solid var(--line); padding: 26px 28px; }
+  .pdocpage { border: 1px solid var(--line); border-radius: 10px; height: 290px; display: grid; place-items: center; color: var(--faint); font-size: 13px; }
+  .pmeta { padding: 26px; }
+  .pmeta h3 { margin: 0 0 4px; font-size: 17px; font-weight: 650; letter-spacing: -.015em; }
+  .engage { display: flex; gap: 6px; margin: 16px 0 20px; flex-wrap: wrap; }
+  .comment { border-top: 1px solid var(--line); padding: 12px 2px; font-size: 13.5px; }
+  .comment b { font-weight: 600; font-size: 13px; }
+  .comment .cm { color: var(--muted); }
+
+  /* 07 artifacts */
+  .arts { padding: 26px 28px; }
+  .artgrid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 14px; margin-top: 18px; }
+  .art { border: 1px solid var(--line); border-radius: 12px; padding: 16px; font-size: 13px; display: flex; flex-direction: column; gap: 6px; min-height: 118px; }
+  .art .k { font-size: 11.5px; font-weight: 600; color: var(--blue); }
+  .art b { font-size: 14px; font-weight: 600; letter-spacing: -.01em; }
+  .art .m { color: var(--faint); font-size: 12px; margin-top: auto; }
+  .flash { perspective: 700px; height: 118px; }
+  .flash-inner { position: relative; width: 100%; height: 100%; transition: transform .5s; transform-style: preserve-3d; }
+  .flash:hover .flash-inner { transform: rotateY(180deg); }
+  @media (prefers-reduced-motion: reduce) { .flash-inner { transition: none; } .flash:hover .flash-inner { transform: none; } }
+  .fface { position: absolute; inset: 0; backface-visibility: hidden; display: grid; place-items: center; padding: 14px; text-align: center; border: 1px solid var(--line); border-radius: 12px; background: var(--bg); font-weight: 600; font-size: 13px; }
+  .fback { transform: rotateY(180deg); background: var(--blue-soft); font-weight: 500; }
+
+  /* 08 plan */
+  .plan { padding: 26px 28px; }
+  .planhead { display: flex; justify-content: space-between; align-items: baseline; flex-wrap: wrap; gap: 10px; margin-bottom: 12px; }
+  .week { border-top: 1px solid var(--line); padding: 14px 2px; display: grid; grid-template-columns: 100px 1fr auto; gap: 16px; align-items: start; }
+  .week .wk { font-size: 13px; color: var(--faint); }
+  .week .wk b { display: block; color: var(--ink); font-weight: 600; }
+  .week .items { font-size: 14px; display: flex; flex-direction: column; gap: 6px; color: var(--muted); }
+  .week .items b { color: var(--ink); font-weight: 600; }
+
+  /* 09/10 twocol */
+  .twocol { padding: 26px 28px; display: grid; grid-template-columns: 1.1fr 1fr; gap: 36px; }
+  .bar { display: grid; grid-template-columns: 140px 1fr 30px; gap: 12px; align-items: center; font-size: 13px; margin-bottom: 10px; color: var(--muted); }
+  .bar .tr { height: 8px; border-radius: 4px; background: var(--hover); overflow: hidden; }
+  .bar .tr i { display: block; height: 100%; border-radius: 4px; background: var(--blue); }
+  .bar .n { color: var(--faint); font-variant-numeric: tabular-nums; text-align: right; font-size: 12px; }
+  .pq { border-top: 1px solid var(--line); padding: 12px 2px; font-size: 14px; }
+  .pq:first-of-type { border-top: none; }
+  .pq .conf { float: right; font-size: 12.5px; font-weight: 600; color: var(--blue); font-variant-numeric: tabular-nums; }
+  .pq small { color: var(--faint); display: block; margin-top: 2px; font-size: 12px; }
+  h4.blk { margin: 0 0 2px; font-size: 15px; font-weight: 650; }
+  .sub { color: var(--faint); font-size: 12.5px; margin-bottom: 16px; }
+  .bandbig { font-size: 36px; font-weight: 650; letter-spacing: -.03em; }
+  .rubric { list-style: none; padding: 0; margin: 12px 0 0; font-size: 13.5px; color: var(--muted); }
+  .rubric li { padding: 8px 0; border-top: 1px solid var(--line); }
+  .rubric .ok::before { content: "✓  "; color: var(--good); font-weight: 700; }
+  .rubric .miss::before { content: "✕  "; color: var(--bad); font-weight: 700; }
+  .ansquote { border-left: 2px solid var(--line); padding-left: 14px; color: var(--muted); font-size: 13.5px; margin-top: 14px; }
+
+  /* 11 forum */
+  .forum { padding: 24px 28px; }
+  .thread { border-top: 1px solid var(--line); padding: 13px 2px; display: flex; gap: 16px; align-items: flex-start; }
+  .votes { text-align: center; font-size: 11px; color: var(--faint); min-width: 30px; font-variant-numeric: tabular-nums; }
+  .votes .n { color: var(--ink); font-size: 14px; font-weight: 600; }
+  .thread .t { font-weight: 550; font-size: 14px; }
+  .thread .meta { margin-top: 3px; }
+
+  /* 12 voice */
+  .voice { display: grid; place-items: center; padding: 48px 20px; background: var(--hover); }
+  .voicecard { width: 440px; border-radius: 16px; background: var(--bg); border: 1px solid var(--line); padding: 32px; text-align: center; display: flex; flex-direction: column; align-items: center; gap: 14px; }
+  .orb { width: 88px; height: 88px; border-radius: 50%; background: radial-gradient(circle at 34% 30%, #A9D2F1, var(--blue) 78%); animation: breathe 3.4s ease-in-out infinite; }
+  @keyframes breathe { 0%,100% { transform: scale(1); } 50% { transform: scale(1.05); } }
+  @media (prefers-reduced-motion: reduce) { .orb { animation: none; } }
+  .transcript { font-size: 13.5px; color: var(--muted); border-top: 1px solid var(--line); padding-top: 14px; width: 100%; text-align: left; }
+  .transcript b { color: var(--ink); font-weight: 600; }
+
+  footer { margin-top: 96px; color: var(--faint); font-size: 12.5px; border-top: 1px solid var(--line); padding-top: 18px; }
+  .overflow { overflow-x: auto; }
+</style>
+
+<div class="wrap">
+  <header class="page">
+    <h1>Tutor — wireframes v6</h1>
+    <p>Simpler, same functionality. One typeface, sentence case, hairlines, one blue. Anything secondary is smaller, greyer, or behind “···”.</p>
+  </header>
+
+  <!-- 01 ONBOARDING -->
+  <section class="screen">
+    <div class="shead"><span class="num">01</span><h2>Onboarding</h2></div>
+    <ul class="notes"><li>Four steps, three minutes, ends in a first answer</li></ul>
+    <div class="frame"><div class="bbar"><i></i><i></i><i></i><span class="url">tutor.app/onboarding</span></div>
+      <div class="onbgrid">
+        <div class="onbcell"><p class="kicker">Step 1 of 4</p>
+          <h3>What year are you in?</h3>
+          <div class="yearrow">
+            <span class="yearbtn"><b>9</b><small>Stage 5</small></span>
+            <span class="yearbtn"><b>10</b><small>Stage 5</small></span>
+            <span class="yearbtn"><b>11</b><small>Prelim</small></span>
+            <span class="yearbtn sel"><b>12</b><small>HSC</small></span>
+          </div>
+        </div>
+        <div class="onbcell"><p class="kicker">Step 2 of 4</p>
+          <h3>Pick your subjects</h3>
+          <div class="subjpick">
+            <span class="sp sel">English Adv</span><span class="sp sel">Maths Ext 1</span><span class="sp sel">Maths Ext 2</span>
+            <span class="sp sel">Physics</span><span class="sp sel">Chemistry</span><span class="sp">Biology</span>
+            <span class="sp">Economics</span><span class="sp sel">French</span><span class="sp">Modern History</span>
+          </div>
+          <p class="meta" style="margin:12px 0 0">Only Year 12 courses Sydney High runs · 6 selected, 13 units</p>
+        </div>
+        <div class="onbcell onbrow2"><p class="kicker">Step 3 of 4</p>
+          <h3>When are your trials?</h3>
+          <span class="input" style="display:inline-block">4 August 2027</span>
+          <p class="meta" style="margin:12px 0 0">Pre-filled with the usual Term 3 window. Skippable.</p>
+        </div>
+        <div class="onbcell onbrow2"><p class="kicker">Step 4 of 4</p>
+          <h3>You're set.</h3>
+          <p class="muted" style="font-size:14px; margin:0 0 18px">Syllabus for all 6 courses, 10 years of HSC papers, and 214 resources from your cohort — already loaded.</p>
+          <span class="btn">Ask your tutor something</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 02 HOME -->
+  <section class="screen">
+    <div class="shead"><span class="num">02</span><h2>Home</h2></div>
+    <ul class="notes"><li>Ask bar routes to the right subject by itself</li><li>Then: today's plan, then one line per subject</li></ul>
+    <div class="frame"><div class="bbar"><i></i><i></i><i></i><span class="url">tutor.app</span></div>
+      <div class="topbar"><span class="brand"><span class="mark"></span>tutor</span>
+        <div class="subjects"><span class="subjtab on">All</span><span class="subjtab">Physics</span><span class="subjtab">Chemistry</span><span class="subjtab">Maths X2</span><span class="subjtab">English</span><span class="subjtab">French</span></div>
+        <div class="right"><span>Plan</span><span class="avatar">A</span></div>
+      </div>
+      <div class="home">
+        <div class="greet">What are we working on?</div>
+        <div class="subgreet">Trials in 32 days · 45 minutes planned today</div>
+        <div class="ask">
+          <div class="ph">Ask anything…</div>
+          <div class="askrow">
+            <div class="g"><span class="iconb">＋</span></div>
+            <div class="g"><span class="iconb mic">🎙</span><span class="iconb send">↑</span></div>
+          </div>
+        </div>
+        <div class="homeblock">
+          <p class="kicker">Today</p>
+          <div class="hitem"><span><b>Chemistry</b> — Keq drill, then 2 past-paper questions</span><span class="pill blue">Start · 25 min</span></div>
+          <div class="hitem"><span><b>Physics</b> — banked curves fix</span><span class="meta">15 min</span></div>
+          <div class="hitem"><span><b>French</b> — vocab review</span><span class="meta">5 min</span></div>
+        </div>
+        <div class="homeblock">
+          <p class="kicker">Your subjects</p>
+          <div class="hitem"><span><b>Chemistry</b> <span class="muted">— trial paper added · your notes hit ★20</span></span><span class="go">›</span></div>
+          <div class="hitem"><span><b>Physics</b> <span class="muted">— flashcards due for review</span></span><span class="go">›</span></div>
+          <div class="hitem"><span><b>Maths X2</b> <span class="muted">— your forum question got a best answer</span></span><span class="go">›</span></div>
+          <div class="hitem"><span><b>English</b> <span class="muted">— essay plan still open</span></span><span class="go">›</span></div>
+          <div class="hitem"><span><b>French</b> <span class="muted">— speaking streak: 4 days</span></span><span class="go">›</span></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 03 TUTOR -->
+  <section class="screen">
+    <div class="shead"><span class="num">03</span><h2>Subject — Tutor</h2></div>
+    <ul class="notes"><li>Landing tab for every subject; chat history kept per subject</li><li>Sources shown as one quiet line under each answer</li></ul>
+    <div class="frame"><div class="bbar"><i></i><i></i><i></i><span class="url">tutor.app/chemistry</span></div>
+      <div class="topbar"><span class="brand"><span class="mark"></span>tutor</span>
+        <div class="subjects"><span class="subjtab">All</span><span class="subjtab">Physics</span><span class="subjtab on">Chemistry</span><span class="subjtab">Maths X2</span><span class="subjtab">English</span><span class="subjtab">French</span></div>
+        <div class="right"><span>Plan</span><span class="avatar">A</span></div>
+      </div>
+      <div class="subnav"><span class="on">Tutor</span><span>Syllabus</span><span>Repository</span><span>Artifacts</span><span>Forum</span></div>
+      <div class="chatwrap">
+        <div class="chat">
+          <div class="msg user">I don't get why Keq doesn't change when concentration changes</div>
+          <div class="msg ai">Keq is fixed at a given temperature. Change a concentration and the <i>position</i> shifts to restore the same ratio — only temperature changes Keq itself.
+            <div class="srcline">Module 5 · CH12-12 · <a href="#">J. Chen's summary</a> · <a href="#">2023 HSC Q21</a></div></div>
+          <div class="actions"><span class="pill">Quiz me on this</span><span class="pill">Make flashcards</span><span class="pill">Past questions</span></div>
+          <div class="chatask"><span>Ask Chemistry anything…</span><span>🎙</span></div>
+        </div>
+        <div class="sidectx">
+          <p class="kicker">Drawing on</p>
+          <div class="ctxitem"><span>Syllabus + 10 years of papers</span><span class="meta">built-in</span></div>
+          <div class="ctxitem"><span>Equilibrium summary — J. Chen</span><span class="meta">★20</span></div>
+          <div class="ctxitem"><span>SBHS 2023 trial</span><span class="meta">★32</span></div>
+          <div class="ctxitem"><span>Your class notes</span><span class="meta">yours</span></div>
+          <p class="kicker" style="margin-top:24px">Shortcuts</p>
+          <div style="display:flex; flex-wrap:wrap; gap:6px">
+            <span class="pill">Quiz me</span><span class="pill">Predict paper</span><span class="pill">Mark my answer</span><span class="pill">Cheat sheet</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 04 SYLLABUS -->
+  <section class="screen">
+    <div class="shead"><span class="num">04</span><h2>Subject — Syllabus</h2></div>
+    <ul class="notes"><li>Built in, nothing to upload; rings fill as you quiz</li></ul>
+    <div class="frame"><div class="bbar"><i></i><i></i><i></i><span class="url">tutor.app/chemistry/syllabus</span></div>
+      <div class="subnav"><span>Tutor</span><span class="on">Syllabus</span><span>Repository</span><span>Artifacts</span><span>Forum</span></div>
+      <div class="syl">
+        <div class="sylhead"><h3 style="margin:0; font-size:17px; font-weight:650">Module 5 — Equilibrium</h3><span class="meta">Mastery 64%</span></div>
+        <div class="modrow"><span class="pill blue">Module 5</span><span class="pill">Module 6</span><span class="pill">Module 7</span><span class="pill">Module 8</span></div>
+        <div class="dot"><span class="ring r75"><i>75</i></span>
+          <span class="t">Effects of temperature, pressure and concentration — Le Chatelier<small>Asked in 9 of the last 10 HSC papers</small></span>
+          <span class="go">Quiz ›</span></div>
+        <div class="dot"><span class="ring r25"><i>25</i></span>
+          <span class="t">Calculate Keq and predict equilibrium position<small>Band 5/6 discriminator · on your plan today</small></span>
+          <span class="go">Quiz ›</span></div>
+        <div class="dot"><span class="ring r0"><i>–</i></span>
+          <span class="t">Static and dynamic equilibrium in open and closed systems<small>Not yet attempted</small></span>
+          <span class="go">Quiz ›</span></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 05 REPOSITORY -->
+  <section class="screen">
+    <div class="shead"><span class="num">05</span><h2>Subject — Repository</h2></div>
+    <ul class="notes"><li>Sorted by what the cohort actually uses; low-engagement dupes sink</li><li>Drop a file anywhere — it files itself, you confirm</li></ul>
+    <div class="frame"><div class="bbar"><i></i><i></i><i></i><span class="url">tutor.app/chemistry/repository</span></div>
+      <div class="subnav"><span>Tutor</span><span>Syllabus</span><span class="on">Repository</span><span>Artifacts</span><span>Forum</span></div>
+      <div class="repo">
+        <div class="tree">
+          <div class="subj">Chemistry</div>
+          <ul>
+            <li class="on">Module 5 · Equilibrium <span class="n">23</span></li>
+            <li>Module 6 · Acid/base <span class="n">19</span></li>
+            <li>Module 7 · Organic <span class="n">28</span></li>
+            <li>Module 8 · Applying <span class="n">14</span></li>
+          </ul>
+          <p class="kicker" style="margin-top:18px">In Module 5</p>
+          <ul>
+            <li>Past HSC questions <span class="n">11</span></li>
+            <li>Notes <span class="n">6</span></li>
+            <li>Flashcards <span class="n">3</span></li>
+            <li>Cheat sheets <span class="n">2</span></li>
+            <li>Trials <span class="n">1</span></li>
+          </ul>
+        </div>
+        <div class="repolist">
+          <div class="repohead"><h3 style="margin:0; font-size:16px; font-weight:650">Module 5</h3><span class="btn ghost">Upload</span></div>
+          <div class="sortrow"><span class="pill blue">Most used</span><span class="pill">Newest</span></div>
+          <div class="file"><span class="ficon">📄</span>
+            <span class="t">Equilibrium full summary <small>J. Chen · in 214 AI generations · 12 comments</small></span>
+            <span class="stats">★20</span></div>
+          <div class="file"><span class="ficon">📝</span>
+            <span class="t">SBHS 2023 trial, Section II <small>uploaded · 8 comments</small></span>
+            <span class="stats">★32</span></div>
+          <div class="file"><span class="ficon">🔗</span>
+            <span class="t">2024 HSC questions + marking guidelines <small>NESA · official link</small></span>
+            <span class="stats">↗</span></div>
+          <div class="file"><span class="ficon">📄</span>
+            <span class="t">my chem notes v2 <small>low use — sinks automatically</small></span>
+            <span class="stats">★1</span></div>
+          <div class="autofile"><span><b>chem_mod5_final.pdf</b> → Module 5 · Notes</span><span><b>Confirm</b> · Move</span></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 06 PREVIEW -->
+  <section class="screen">
+    <div class="shead"><span class="num">06</span><h2>Resource — preview &amp; comments</h2></div>
+    <ul class="notes"><li>Doc left, community right; “Open in tutor” grounds a chat in this one file</li></ul>
+    <div class="frame"><div class="bbar"><i></i><i></i><i></i><span class="url">tutor.app/chemistry/r/equilibrium-summary</span></div>
+      <div class="preview">
+        <div class="pdoc">
+          <div class="pdocpage">PDF preview — page 1 of 6</div>
+          <div style="display:flex; gap:8px; margin-top:14px"><span class="pill">‹</span><span class="pill">›</span><span class="pill blue">Open in tutor</span></div>
+        </div>
+        <div class="pmeta">
+          <h3>Equilibrium full summary</h3>
+          <p class="meta" style="margin:0">J. Chen · Module 5 · Notes · 12 May</p>
+          <div class="engage"><span class="pill blue">▲ 20</span><span class="pill">Save</span><span class="pill">···</span></div>
+          <p class="kicker">Comments · 12</p>
+          <div class="comment"><b>T. Nguyen</b> <span class="cm">— p4 drops the ² on [NO₂]; fixed version in replies</span></div>
+          <div class="comment"><b>J. Chen</b> <span class="cm">— good catch, v3 is up ✓</span></div>
+          <div class="comment"><b>Tutor</b> <span class="cm">— verified v3 against the 2023 marking guidelines</span></div>
+          <div class="input" style="margin-top:14px">Add a comment…</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 07 ARTIFACTS -->
+  <section class="screen">
+    <div class="shead"><span class="num">07</span><h2>Subject — Artifacts</h2></div>
+    <ul class="notes"><li>Everything generated or shared; duplicate any deck and make it yours</li></ul>
+    <div class="frame"><div class="bbar"><i></i><i></i><i></i><span class="url">tutor.app/chemistry/artifacts</span></div>
+      <div class="subnav"><span>Tutor</span><span>Syllabus</span><span>Repository</span><span class="on">Artifacts</span><span>Forum</span></div>
+      <div class="arts">
+        <div style="display:flex; gap:6px; flex-wrap:wrap">
+          <span class="pill blue">All</span><span class="pill">Flashcards</span><span class="pill">Cheat sheets</span><span class="pill">Papers</span><span class="pill">Quizzes</span><span class="pill">More ▾</span>
+        </div>
+        <div class="artgrid">
+          <div class="flash"><div class="flash-inner">
+            <div class="fface">Keq vs position — which changes with concentration?</div>
+            <div class="fface fback">Position shifts. Keq only changes with temperature.</div>
+          </div></div>
+          <div class="art"><span class="k">Cheat sheet</span><b>Equilibrium one-pager</b><span class="m">★11 · PDF</span></div>
+          <div class="art"><span class="k">Practice paper</span><b>Predicted trial</b><span class="m">attempted 68% · retry weakest 5</span></div>
+          <div class="art"><span class="k">Quiz</span><b>Le Chatelier rapid-fire</b><span class="m">adaptive · 20 questions</span></div>
+          <div class="art"><span class="k">Formula sheet</span><b>Keq, Ksp, pH quick ref</b><span class="m">★8 · duplicate &amp; edit</span></div>
+          <div class="art"><span class="k">Essay plan</span><b>Hamlet — Module B</b><span class="m">shared to you</span></div>
+          <div class="art"><span class="k">Vocab deck</span><b>French — school &amp; plans</b><span class="m">42 cards</span></div>
+          <div class="art"><span class="k">Timeline</span><b>Cold War ↔ dot points</b><span class="m">Modern History</span></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 08 PLAN -->
+  <section class="screen">
+    <div class="shead"><span class="num">08</span><h2>Plan</h2></div>
+    <ul class="notes"><li>Cross-subject; re-plans itself as quiz results come in</li></ul>
+    <div class="frame"><div class="bbar"><i></i><i></i><i></i><span class="url">tutor.app/plan</span></div>
+      <div class="plan">
+        <div class="planhead"><h3 style="margin:0; font-size:17px; font-weight:650">Road to trials <span class="meta" style="font-weight:400">· 32 days</span></h3><span class="pill">Regenerate</span></div>
+        <div class="week"><span class="wk"><b>Week 1</b>this week</span>
+          <div class="items">
+            <span><b>Chemistry</b> — close out Equilibrium: Keq drills, 2019 + 2022 questions</span>
+            <span><b>Physics</b> — banked curves fix, 6-mark answer structure</span>
+            <span><b>English</b> — Hamlet skeleton through the marker</span>
+          </div><span class="meta">6.5h</span></div>
+        <div class="week"><span class="wk"><b>Week 2</b></span>
+          <div class="items"><span><b>Maths X2</b> — complex numbers sweep, predicted paper</span><span><b>French</b> — two speaking sessions, vocab daily</span></div><span class="meta">7h</span></div>
+        <div class="week"><span class="wk"><b>Week 3</b></span>
+          <div class="items"><span>Full predicted trial per subject, marked</span></div><span class="meta">9h</span></div>
+        <div class="week"><span class="wk"><b>Week 4</b>trials</span>
+          <div class="items"><span>Cheat-sheet refresh before each exam, light review</span></div><span class="meta">3h</span></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 09 PREDICTOR -->
+  <section class="screen">
+    <div class="shead"><span class="num">09</span><h2>Predictor</h2></div>
+    <ul class="notes"><li>Ten years of papers → what's likely this time</li></ul>
+    <div class="frame"><div class="bbar"><i></i><i></i><i></i><span class="url">tutor.app/physics/predict</span></div>
+      <div class="twocol">
+        <div>
+          <h4 class="blk">What Physics actually asks</h4>
+          <div class="sub">HSC 2015–2025, marks by topic</div>
+          <div class="bar"><span>Projectile motion</span><span class="tr"><i style="width:88%"></i></span><span class="n">31</span></div>
+          <div class="bar"><span>Circular motion</span><span class="tr"><i style="width:74%"></i></span><span class="n">26</span></div>
+          <div class="bar"><span>EM induction</span><span class="tr"><i style="width:69%"></i></span><span class="n">24</span></div>
+          <div class="bar"><span>Special relativity</span><span class="tr"><i style="width:55%"></i></span><span class="n">19</span></div>
+          <div class="bar"><span>Standard model</span><span class="tr"><i style="width:34%"></i></span><span class="n">12</span></div>
+        </div>
+        <div>
+          <h4 class="blk">Likely in your trial</h4>
+          <div class="sub">Frequent topics that have gone quiet</div>
+          <div class="pq"><span class="conf">87%</span>Banked curve with friction<small>Last asked 2022 · 6-mark pattern</small></div>
+          <div class="pq"><span class="conf">81%</span>Motional EMF, moving conductor<small>8 of 10 years, absent since 2023</small></div>
+          <div class="pq"><span class="conf">74%</span>Muon decay as time-dilation evidence<small>Classic band-6 explain</small></div>
+          <div style="margin-top:16px"><span class="btn">Generate predicted paper</span></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 10 MARKER -->
+  <section class="screen">
+    <div class="shead"><span class="num">10</span><h2>Marker</h2></div>
+    <ul class="notes"><li>Marked against NESA guidelines and band descriptors</li></ul>
+    <div class="frame"><div class="bbar"><i></i><i></i><i></i><span class="url">tutor.app/chemistry/marker</span></div>
+      <div class="twocol">
+        <div>
+          <p class="kicker">Your answer — 2023 HSC Q32, 7 marks</p>
+          <div class="ansquote">“The equilibrium shifts right because the forward reaction is endothermic, absorbing the added heat. This increases the yield of…”</div>
+        </div>
+        <div>
+          <div class="bandbig">5/7 <span style="font-size:14px; color:var(--muted); font-weight:400">mid band 5</span></div>
+          <ul class="rubric">
+            <li class="ok">Le Chatelier applied correctly</li>
+            <li class="ok">Temperature linked to position</li>
+            <li class="miss">No Keq comparison — needed for full marks</li>
+            <li class="miss">Rate vs position distinction missing</li>
+          </ul>
+          <div style="margin-top:14px; display:flex; gap:6px"><span class="pill blue">Show a band 6 answer</span><span class="pill">Drill this type</span></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 11 FORUM -->
+  <section class="screen">
+    <div class="shead"><span class="num">11</span><h2>Subject — Forum</h2></div>
+    <ul class="notes"><li>@tutor can be summoned; answers cite repository items</li></ul>
+    <div class="frame"><div class="bbar"><i></i><i></i><i></i><span class="url">tutor.app/maths-x2/forum</span></div>
+      <div class="subnav"><span>Tutor</span><span>Syllabus</span><span>Repository</span><span>Artifacts</span><span class="on">Forum</span></div>
+      <div class="forum">
+        <div style="display:flex; gap:10px; margin-bottom:6px"><div class="input" style="flex:1">Ask the cohort…</div><span class="btn">Post</span></div>
+        <div class="thread"><div class="votes"><div class="n">24</div>▲</div>
+          <div><div class="t">Complex roots of unity — geometric trick for 2023 q15b?</div>
+          <div class="meta">7 replies · best answer ✓ · @tutor cited J. Chen's summary</div></div></div>
+        <div class="thread"><div class="votes"><div class="n">11</div>▲</div>
+          <div><div class="t">Is the mechanics cheat sheet right about banked curves?</div>
+          <div class="meta">4 replies · links to an artifact</div></div></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 12 VOICE -->
+  <section class="screen">
+    <div class="shead"><span class="num">12</span><h2>Voice session</h2></div>
+    <ul class="notes"><li>Speaking-exam practice for languages; live transcript</li></ul>
+    <div class="frame"><div class="bbar"><i></i><i></i><i></i><span class="url">tutor.app/french — voice</span></div>
+      <div class="voice">
+        <div class="voicecard">
+          <div class="orb"></div>
+          <b style="font-weight:650">French speaking practice · 4:32</b>
+          <p class="meta" style="margin:0">Continuers oral format — school &amp; future plans</p>
+          <div class="transcript">
+            <b>Tutor</b> — Alors, parle-moi de ton école…<br>
+            <b>You</b> — J'étudie au lycée Sydney Boys depuis cinq ans…<br>
+            <b>Tutor</b> — Très bien. Attention au passé composé avec « depuis »…
+          </div>
+          <div style="display:flex; gap:8px"><span class="btn ghost">Pause</span><span class="btn">End &amp; get feedback</span></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <footer>Tutor · wireframes v6 · one face, one blue, hairlines</footer>
+</div>

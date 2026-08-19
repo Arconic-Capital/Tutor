@@ -1,0 +1,281 @@
+[
+ {
+  "course_id": "software-engineering",
+  "title": "Software Engineering HSC exam packs (all years)",
+  "url": "https://www.nsw.gov.au/education-and-training/nesa/curriculum/hsc-exam-papers/software-engineering",
+  "year": null,
+  "resource_type": "past_paper",
+  "source": "NESA",
+  "notes": "Verified resolves. Landing page for all Software Engineering exam packs. New course, first HSC 2025."
+ },
+ {
+  "course_id": "software-engineering",
+  "title": "Software Engineering 2025 HSC exam pack",
+  "url": "https://www.nsw.gov.au/education-and-training/nesa/curriculum/hsc-exam-papers/software-engineering/2025",
+  "year": 2025,
+  "resource_type": "past_paper",
+  "source": "NESA",
+  "notes": "Verified resolves. First HSC for the new course. Exam was delivered online (accessed via NESA's online exam platform, no paper PDF); pack includes marking guidelines PDF (433KB) and detailed marking feedback for Q15-27."
+ },
+ {
+  "course_id": "software-engineering",
+  "title": "Software Engineering 2025 HSC marking guidelines and feedback",
+  "url": "https://www.nsw.gov.au/education-and-training/nesa/curriculum/hsc-exam-papers/software-engineering/2025",
+  "year": 2025,
+  "resource_type": "marking_guidelines",
+  "source": "NESA",
+  "notes": "Marking guidelines PDF and examiner feedback are on the same 2025 exam pack page (stable landing page preferred over deep PDF link)."
+ },
+ {
+  "course_id": "software-engineering",
+  "title": "Software Engineering 11-12 Syllabus (2022)",
+  "url": "https://curriculum.nsw.edu.au/learning-areas/tas/software-engineering-11-12-2022/overview",
+  "year": null,
+  "resource_type": "syllabus",
+  "source": "NESA",
+  "notes": "Official NSW Curriculum syllabus page for the current course."
+ },
+ {
+  "course_id": "software-engineering",
+  "title": "Software Engineering HSC examinations - sample exam information",
+  "url": "https://curriculum.nsw.edu.au/learning-areas/tas/software-engineering-11-12-2022/assessment/hsc-examinations",
+  "year": null,
+  "resource_type": "sample_paper",
+  "source": "NESA",
+  "notes": "Verified resolves. Official page for HSC exam specs; the online sample exam is accessed by schools via Schools Online, with sample-exam marking guidelines published via this page/NSW Curriculum library."
+ },
+ {
+  "course_id": "software-engineering",
+  "title": "Software Design and Development HSC exam papers archive (legacy course)",
+  "url": "https://www.nsw.gov.au/education-and-training/nesa/curriculum/hsc-exam-papers/software-design-and-development-archive",
+  "year": null,
+  "resource_type": "past_paper",
+  "source": "NESA",
+  "notes": "Archive landing page for the predecessor course (SDD). Papers are not from the current syllabus but remain useful practice; overlapping content (algorithms, data, testing) transfers."
+ },
+ {
+  "course_id": "software-engineering",
+  "title": "Software Design and Development 2024 HSC exam pack (archive)",
+  "url": "https://www.nsw.gov.au/education-and-training/nesa/curriculum/hsc-exam-papers/software-design-and-development-archive/2024",
+  "year": 2024,
+  "resource_type": "past_paper",
+  "source": "NESA",
+  "notes": "Final SDD exam. Includes paper, marking guidelines and feedback. Legacy syllabus - use selectively."
+ },
+ {
+  "course_id": "software-engineering",
+  "title": "Software Design and Development 2023 HSC exam pack (archive)",
+  "url": "https://www.nsw.gov.au/education-and-training/nesa/curriculum/hsc-exam-papers/software-design-and-development-archive/2023",
+  "year": 2023,
+  "resource_type": "past_paper",
+  "source": "NESA",
+  "notes": "Legacy SDD paper with marking guidelines; useful practice for overlapping topics."
+ },
+ {
+  "course_id": "software-engineering",
+  "title": "HSC Familiarisation Questions (online exam platform)",
+  "url": "https://fam.hsconline.nesa.nsw.edu.au/",
+  "year": null,
+  "resource_type": "other",
+  "source": "NESA",
+  "notes": "Verified resolves (web app shell). Official NESA familiarisation site for online HSC exams - directly relevant since Software Engineering is examined online."
+ },
+ {
+  "course_id": "engineering-studies",
+  "title": "Engineering Studies HSC exam packs (2015-2025)",
+  "url": "https://www.nsw.gov.au/education-and-training/nesa/curriculum/hsc-exam-papers/engineering-studies",
+  "year": null,
+  "resource_type": "past_paper",
+  "source": "NESA",
+  "notes": "Verified resolves. Landing page listing exam packs for 2015 through 2025, each with paper, marking guidelines and marking feedback."
+ },
+ {
+  "course_id": "engineering-studies",
+  "title": "Engineering Studies 2025 HSC exam pack",
+  "url": "https://www.nsw.gov.au/education-and-training/nesa/curriculum/hsc-exam-papers/engineering-studies/2025",
+  "year": 2025,
+  "resource_type": "past_paper",
+  "source": "NESA",
+  "notes": "Most recent paper with marking guidelines and examiner feedback."
+ },
+ {
+  "course_id": "engineering-studies",
+  "title": "Engineering Studies 2024 HSC exam pack",
+  "url": "https://www.nsw.gov.au/education-and-training/nesa/curriculum/hsc-exam-papers/engineering-studies/2024",
+  "year": 2024,
+  "resource_type": "past_paper",
+  "source": "NESA",
+  "notes": "Paper, marking guidelines and marking feedback. URL follows the verified /engineering-studies/{year} pattern."
+ },
+ {
+  "course_id": "engineering-studies",
+  "title": "Engineering Studies Stage 6 Syllabus (2011)",
+  "url": "https://educationstandards.nsw.edu.au/wps/portal/nesa/11-12/stage-6-learning-areas/tas/engineering-studies-syllabus",
+  "year": null,
+  "resource_type": "syllabus",
+  "source": "NESA",
+  "notes": "Current operative syllabus for Year 12. A new Engineering syllabus is coming under curriculum reform but this 2011 syllabus applies to current HSC cohorts."
+ },
+ {
+  "course_id": "health-movement-science",
+  "title": "Health and Movement Science 11-12 Syllabus (2023)",
+  "url": "https://curriculum.nsw.edu.au/learning-areas/pdhpe/health-and-movement-science-11-12-2023/overview",
+  "year": null,
+  "resource_type": "syllabus",
+  "source": "NESA",
+  "notes": "Official NSW Curriculum syllabus page. NOTE: first HSC examination for HMS is 2026 (not 2025) - Year 11 implementation began 2025. No real HMS past papers exist yet."
+ },
+ {
+  "course_id": "health-movement-science",
+  "title": "Health and Movement Science HSC examination materials (sample exam)",
+  "url": "https://curriculum.nsw.edu.au/learning-areas/pdhpe/health-and-movement-science-11-12-2023/assessment/hsc-examinations",
+  "year": null,
+  "resource_type": "sample_paper",
+  "source": "NESA",
+  "notes": "Verified resolves. Official location for HSC exam specifications and sample examination materials for the new course (materials section is JS-loaded on the page)."
+ },
+ {
+  "course_id": "health-movement-science",
+  "title": "PDHPE HSC exam papers archive (legacy course, 2015-2025)",
+  "url": "https://www.nsw.gov.au/education-and-training/nesa/curriculum/hsc-exam-papers/pdhpe-archive",
+  "year": null,
+  "resource_type": "past_paper",
+  "source": "NESA",
+  "notes": "Verified resolves. Archive of the predecessor PDHPE course, 2015-2025 inclusive. Legacy syllabus, but core topics (health priorities, energy systems, training, skill acquisition) overlap with HMS and remain useful practice."
+ },
+ {
+  "course_id": "health-movement-science",
+  "title": "PDHPE 2025 HSC exam pack (archive)",
+  "url": "https://www.nsw.gov.au/education-and-training/nesa/curriculum/hsc-exam-papers/pdhpe-archive/2025",
+  "year": 2025,
+  "resource_type": "past_paper",
+  "source": "NESA",
+  "notes": "Final PDHPE exam before HMS replaced it. Paper, marking guidelines and feedback."
+ },
+ {
+  "course_id": "health-movement-science",
+  "title": "PDHPE 2024 HSC exam pack (archive)",
+  "url": "https://www.nsw.gov.au/education-and-training/nesa/curriculum/hsc-exam-papers/pdhpe-archive/2024",
+  "year": 2024,
+  "resource_type": "past_paper",
+  "source": "NESA",
+  "notes": "Legacy PDHPE paper with marking guidelines; URL follows the verified /pdhpe-archive/{year} pattern."
+ },
+ {
+  "course_id": "ancient-history",
+  "title": "Ancient History HSC exam packs (2019-2025)",
+  "url": "https://www.nsw.gov.au/education-and-training/nesa/curriculum/hsc-exam-papers/ancient-history",
+  "year": null,
+  "resource_type": "past_paper",
+  "source": "NESA",
+  "notes": "Verified resolves. Landing page listing packs for 2019-2025 plus a link to the older archive."
+ },
+ {
+  "course_id": "ancient-history",
+  "title": "Ancient History 2025 HSC exam pack",
+  "url": "https://www.nsw.gov.au/education-and-training/nesa/curriculum/hsc-exam-papers/ancient-history/2025",
+  "year": 2025,
+  "resource_type": "past_paper",
+  "source": "NESA",
+  "notes": "Verified resolves. Exam paper PDF (1.34MB), marking guidelines, and section-by-section feedback (Vesuvius, Ancient Societies, Personalities, Historical Periods)."
+ },
+ {
+  "course_id": "ancient-history",
+  "title": "Ancient History 2024 HSC exam pack",
+  "url": "https://www.nsw.gov.au/education-and-training/nesa/curriculum/hsc-exam-papers/ancient-history/2024",
+  "year": 2024,
+  "resource_type": "past_paper",
+  "source": "NESA",
+  "notes": "Paper, marking guidelines and marking feedback. URL follows the verified /ancient-history/{year} pattern."
+ },
+ {
+  "course_id": "ancient-history",
+  "title": "Ancient History Stage 6 Syllabus (2017)",
+  "url": "https://www.nsw.gov.au/education-and-training/nesa/curriculum/hsie/ancient-history-stage-6-2017",
+  "year": null,
+  "resource_type": "syllabus",
+  "source": "NESA",
+  "notes": "Verified resolves. Current operative syllabus for HSC cohorts through 2026; the new 2024 syllabus is implemented from 2027."
+ },
+ {
+  "course_id": "ancient-history",
+  "title": "Ancient History 11-12 Syllabus (2024) - new syllabus",
+  "url": "https://curriculum.nsw.edu.au/learning-areas/hsie/ancient-history-11-12-2024/overview",
+  "year": null,
+  "resource_type": "reference",
+  "source": "NESA",
+  "notes": "New syllabus, implemented from 2027 - reference only for current Year 12 students on the 2017 syllabus."
+ },
+ {
+  "course_id": "ancient-history",
+  "title": "Ancient History HSC standards materials (band descriptions and work samples)",
+  "url": "https://www.nsw.gov.au/education-and-training/nesa/curriculum/hsc-standards/ancient-history",
+  "year": null,
+  "resource_type": "reference",
+  "source": "NESA",
+  "notes": "Official standards packages showing what responses at each performance band look like - useful for self-marking practice essays."
+ },
+ {
+  "course_id": "sor-1",
+  "title": "Studies of Religion HSC exam packs (2015-2025)",
+  "url": "https://www.nsw.gov.au/education-and-training/nesa/curriculum/hsc-exam-papers/studies-of-religion",
+  "year": null,
+  "resource_type": "past_paper",
+  "source": "NESA",
+  "notes": "Verified resolves. Single landing page covers both SOR I and SOR II, packs for 2015-2025."
+ },
+ {
+  "course_id": "sor-1",
+  "title": "Studies of Religion 2025 HSC exam pack (SOR I paper)",
+  "url": "https://www.nsw.gov.au/education-and-training/nesa/curriculum/hsc-exam-papers/studies-of-religion/2025",
+  "year": 2025,
+  "resource_type": "past_paper",
+  "source": "NESA",
+  "notes": "Verified resolves. Contains separate SOR I exam paper PDF (385KB), combined marking guidelines (1.15MB), and marking feedback split by course and section."
+ },
+ {
+  "course_id": "sor-1",
+  "title": "Studies of Religion I Stage 6 Syllabus (2009)",
+  "url": "https://www.nsw.gov.au/education-and-training/nesa/curriculum/hsie/studies-of-religion-1-stage-6-2009",
+  "year": null,
+  "resource_type": "syllabus",
+  "source": "NESA",
+  "notes": "Official syllabus page for the 1-unit course, current for HSC cohorts."
+ },
+ {
+  "course_id": "sor-2",
+  "title": "Studies of Religion HSC exam packs (2015-2025)",
+  "url": "https://www.nsw.gov.au/education-and-training/nesa/curriculum/hsc-exam-papers/studies-of-religion",
+  "year": null,
+  "resource_type": "past_paper",
+  "source": "NESA",
+  "notes": "Same landing page serves SOR II - each year's pack contains a separate SOR II paper."
+ },
+ {
+  "course_id": "sor-2",
+  "title": "Studies of Religion 2025 HSC exam pack (SOR II paper)",
+  "url": "https://www.nsw.gov.au/education-and-training/nesa/curriculum/hsc-exam-papers/studies-of-religion/2025",
+  "year": 2025,
+  "resource_type": "past_paper",
+  "source": "NESA",
+  "notes": "Verified resolves. Contains SOR II exam paper PDF (585KB), marking guidelines covering both courses, and SOR II section-by-section feedback across Buddhism, Christianity, Hinduism, Islam and Judaism."
+ },
+ {
+  "course_id": "sor-2",
+  "title": "Studies of Religion II Stage 6 Syllabus (2009)",
+  "url": "https://www.nsw.gov.au/education-and-training/nesa/curriculum/hsie/studies-of-religion-2-stage-6-2009",
+  "year": null,
+  "resource_type": "syllabus",
+  "source": "NESA",
+  "notes": "Official syllabus page for the 2-unit course, current for HSC cohorts."
+ },
+ {
+  "course_id": "sor-2",
+  "title": "Studies of Religion 2024 HSC exam pack",
+  "url": "https://www.nsw.gov.au/education-and-training/nesa/curriculum/hsc-exam-papers/studies-of-religion/2024",
+  "year": 2024,
+  "resource_type": "past_paper",
+  "source": "NESA",
+  "notes": "Both SOR I and II papers with marking guidelines and feedback. URL follows the verified /studies-of-religion/{year} pattern."
+ }
+]

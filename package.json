@@ -8,7 +8,8 @@
     "start": "next start",
     "lint": "eslint",
     "test": "vitest run",
-    "seed": "tsx scripts/seed.ts"
+    "seed": "tsx scripts/seed.ts",
+    "seed:resources": "tsx scripts/seed-resources.ts"
   },
   "dependencies": {
     "@auth/drizzle-adapter": "^1.11.3",

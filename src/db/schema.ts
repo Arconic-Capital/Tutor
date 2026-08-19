@@ -40,6 +40,19 @@ export const userCourses = pgTable(
   (t) => [primaryKey({ columns: [t.userId, t.courseId] })],
 );
 
+export const resources = pgTable("resources", {
+  id: uuid("id").defaultRandom().primaryKey(),
+  courseId: text("course_id").notNull().references(() => courses.id),
+  title: text("title").notNull(),
+  kind: text("kind").notNull().default("link"), // link (seeded/official) | file (student upload, Phase 2)
+  url: text("url"), // for kind=link
+  year: integer("year"), // exam year where applicable
+  resourceType: text("resource_type").notNull(), // past_paper | marking_guidelines | syllabus | sample_paper | reference | other
+  source: text("source").notNull().default("NESA"),
+  notes: text("notes"),
+  createdAt: timestamp("created_at").notNull().defaultNow(),
+});
+
 // ── Auth.js adapter tables ──
 export const accounts = pgTable(
   "accounts",
