@@ -2,7 +2,14 @@ import { db } from "@/db";
 import { resources } from "@/db/schema";
 import { eq, desc } from "drizzle-orm";
 
+import UploadPanel from "@/components/upload-panel";
+
 const TYPE_LABELS: Record<string, string> = {
+  notes: "Cohort notes",
+  summary: "Summaries",
+  trial_paper: "Trial papers",
+  practice_questions: "Practice questions",
+  assignment: "Assignments",
   past_paper: "Past papers",
   marking_guidelines: "Marking guidelines",
   sample_paper: "Sample papers",
@@ -10,7 +17,10 @@ const TYPE_LABELS: Record<string, string> = {
   reference: "Reference sheets & standards",
   other: "Other resources",
 };
-const TYPE_ORDER = ["past_paper", "marking_guidelines", "sample_paper", "syllabus", "reference", "other"];
+const TYPE_ORDER = [
+  "notes", "summary", "trial_paper", "practice_questions", "assignment",
+  "past_paper", "marking_guidelines", "sample_paper", "syllabus", "reference", "other",
+];
 
 export default async function RepositoryPage({ params }: { params: Promise<{ courseId: string }> }) {
   const { courseId } = await params;
@@ -28,9 +38,12 @@ export default async function RepositoryPage({ params }: { params: Promise<{ cou
 
   if (all.length === 0) {
     return (
-      <p className="py-16 text-center text-sm text-[#8a857e]">
-        Nothing here yet — this course hasn&apos;t been seeded. Year 12 subjects are stocked first.
-      </p>
+      <div className="mx-auto max-w-xl py-10">
+        <UploadPanel courseId={courseId} />
+        <p className="py-10 text-center text-sm text-[#8a857e]">
+          Nothing here yet — be the first to add something.
+        </p>
+      </div>
     );
   }
 
@@ -56,6 +69,9 @@ export default async function RepositoryPage({ params }: { params: Promise<{ cou
 
       {/* resource list */}
       <div className="flex flex-col gap-8">
+        <div className="flex justify-end">
+          <UploadPanel courseId={courseId} />
+        </div>
         {groups.map((g) => (
           <section key={g.type} id={g.type}>
             <h2 className="mb-1 text-[15px] font-semibold">{g.label}</h2>
