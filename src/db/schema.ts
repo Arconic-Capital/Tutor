@@ -53,6 +53,18 @@ export const resources = pgTable("resources", {
   createdAt: timestamp("created_at").notNull().defaultNow(),
 });
 
+// Extracted text from official PDFs/pages — powers the AI; PDFs themselves are never re-hosted.
+export const documents = pgTable("documents", {
+  id: uuid("id").defaultRandom().primaryKey(),
+  resourceId: uuid("resource_id").notNull().references(() => resources.id, { onDelete: "cascade" }),
+  title: text("title").notNull(),
+  kind: text("kind").notNull(), // exam_pdf | guidelines_pdf | page_text
+  sourceUrl: text("source_url").notNull().unique(),
+  text: text("text").notNull(),
+  textLength: integer("text_length").notNull(),
+  fetchedAt: timestamp("fetched_at").notNull().defaultNow(),
+});
+
 // ── Auth.js adapter tables ──
 export const accounts = pgTable(
   "accounts",

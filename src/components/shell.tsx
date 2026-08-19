@@ -58,7 +58,7 @@ export default async function Shell({ activeCourseId }: { activeCourseId: string
         {my.map((c) => (
           <Link
             key={c.id}
-            href={`/subject/${c.id}/repository`}
+            href={`/subject/${c.id}`}
             className={`rounded-full px-3.5 py-1.5 text-sm ${activeCourseId === c.id ? "bg-[#f0f6fc] font-semibold text-[#2777c2]" : "text-[#8a857e] hover:text-[#1a1815]"}`}
           >
             {shortName(c.name)}

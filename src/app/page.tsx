@@ -52,7 +52,7 @@ export default async function Home() {
           <ul>
             {my.map((c) => (
               <li key={c.id} className="border-t border-[#eeece8] first:border-t-0">
-                <Link href={`/subject/${c.id}/repository`} className="group flex items-center justify-between gap-3 py-3.5">
+                <Link href={`/subject/${c.id}`} className="group flex items-center justify-between gap-3 py-3.5">
                   <span className="text-sm font-semibold group-hover:text-[#2777c2]">{c.name}</span>
                   <span className="text-xs text-[#b6b1aa]">
                     {countFor(c.id) > 0 ? `${countFor(c.id)} resources` : "not seeded yet"} ›

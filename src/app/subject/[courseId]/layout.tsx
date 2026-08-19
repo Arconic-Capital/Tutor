@@ -22,7 +22,7 @@ export default async function SubjectLayout({
     .where(eq(resources.courseId, courseId));
 
   const tabs = [
-    { key: "tutor", label: "Tutor", soon: true },
+    { key: "tutor", label: "Tutor", soon: false },
     { key: "syllabus", label: "Syllabus", soon: false },
     { key: "repository", label: `Repository · ${resourceCount}`, soon: false },
     { key: "artifacts", label: "Artifacts", soon: true },
