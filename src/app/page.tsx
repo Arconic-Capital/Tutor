@@ -31,8 +31,8 @@ export default async function Home() {
         <p className="mt-1 text-center text-sm text-[#8a857e]">
           Year {me.yearLevel} · Sydney High
           {(() => {
-            const trials = new Date("2026-09-14"); // SBHS Term 3 trial window
-            const days = Math.ceil((trials.getTime() - Date.now()) / 86_400_000);
+            if (!me.trialsDate) return "";
+            const days = Math.ceil((new Date(me.trialsDate).getTime() - Date.now()) / 86_400_000);
             return days > 0 ? ` · trials in ${days} days` : "";
           })()}
         </p>

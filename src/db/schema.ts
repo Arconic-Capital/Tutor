@@ -12,6 +12,7 @@ export const users = pgTable("users", {
   image: text("image"),
   role: roleEnum("role").notNull().default("student"),
   yearLevel: integer("year_level"), // null until onboarding complete
+  trialsDate: timestamp("trials_date"),
   createdAt: timestamp("created_at").notNull().defaultNow(),
 });
 
