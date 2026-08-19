@@ -1,4 +1,4 @@
-import { auth } from "@/auth";
+import { getCurrentUserId } from "@/lib/auth/current-user";
 import { db } from "@/db";
 import { users, userCourses, courses } from "@/db/schema";
 import { eq } from "drizzle-orm";
@@ -6,8 +6,7 @@ import { redirect } from "next/navigation";
 import Link from "next/link";
 
 export default async function Dashboard() {
-  const session = await auth();
-  const userId = session?.user?.id;
+  const userId = await getCurrentUserId();
   if (!userId) redirect("/signin");
 
   const [me] = await db.select().from(users).where(eq(users.id, userId));

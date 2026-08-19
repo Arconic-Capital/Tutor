@@ -1,14 +1,13 @@
 "use server";
 
-import { auth } from "@/auth";
+import { getCurrentUserId } from "@/lib/auth/current-user";
 import { db } from "@/db";
 import { users, userCourses } from "@/db/schema";
 import { eq } from "drizzle-orm";
 import { redirect } from "next/navigation";
 
 export async function completeOnboarding(formData: FormData) {
-  const session = await auth();
-  const userId = session?.user?.id;
+  const userId = await getCurrentUserId();
   if (!userId) redirect("/signin");
 
   const yearLevel = Number(formData.get("yearLevel"));
