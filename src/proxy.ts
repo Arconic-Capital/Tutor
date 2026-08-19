@@ -6,5 +6,5 @@ export const proxy =
   process.env.AUTH_DISABLED === "true" ? () => NextResponse.next() : auth;
 
 export const config = {
-  matcher: ["/((?!api/auth|signin|_next/static|_next/image|favicon.ico).*)"],
+  matcher: ["/((?!api/auth|signin|landing|share|_next/static|_next/image|favicon.ico|shs-video|ui-drafts).*)"],
 };

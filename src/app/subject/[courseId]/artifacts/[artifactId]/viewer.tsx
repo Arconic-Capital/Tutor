@@ -26,12 +26,21 @@ export default function ArtifactViewer({
   title,
   content,
   sourceTitles,
+  artifactId,
 }: {
   type: string;
   title: string;
   content: string;
   sourceTitles: string;
+  artifactId?: string;
 }) {
+  const [copied, setCopied] = useState(false);
+  function share() {
+    if (!artifactId) return;
+    navigator.clipboard.writeText(`${window.location.origin}/share/${artifactId}`);
+    setCopied(true);
+    setTimeout(() => setCopied(false), 2000);
+  }
   const isFlash = type === "flashcards";
   const cards: Card[] = useMemo(
     () => (isFlash ? (JSON.parse(content) as { cards: Card[] }).cards : []),
@@ -66,6 +75,11 @@ export default function ArtifactViewer({
           )}
         </div>
         <div className="flex gap-2 print:hidden">
+          {artifactId && (
+            <button onClick={share} className="rounded-full bg-[#f0f6fc] px-4 py-1.5 text-[13px] font-semibold text-[#2777c2]">
+              {copied ? "Link copied ✓" : "Share"}
+            </button>
+          )}
           <button onClick={() => window.print()} className="rounded-full border border-[#e3e0da] px-4 py-1.5 text-[13px] font-medium hover:bg-[#faf9f7]">
             Print / PDF
           </button>

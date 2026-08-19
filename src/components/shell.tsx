@@ -66,6 +66,7 @@ export default async function Shell({ activeCourseId }: { activeCourseId: string
         ))}
       </div>
       <div className="flex shrink-0 items-center gap-4 text-sm text-[#8a857e]">
+        <Link href="/plan" className="hover:text-[#1a1815]">Plan</Link>
         <Link href="/onboarding" className="hover:text-[#1a1815]">Subjects</Link>
         <span className="grid h-7 w-7 place-items-center rounded-full bg-[#40342b] text-[11px] font-semibold text-white">A</span>
       </div>

@@ -87,6 +87,25 @@ export const chats = pgTable("chats", {
   updatedAt: timestamp("updated_at").notNull().defaultNow(),
 });
 
+// Quiz attempts — the mastery signal
+export const quizAttempts = pgTable("quiz_attempts", {
+  id: uuid("id").defaultRandom().primaryKey(),
+  courseId: text("course_id").notNull().references(() => courses.id),
+  topicId: uuid("topic_id").references(() => topics.id),
+  question: text("question").notNull(),
+  answer: text("answer").notNull(),
+  awarded: integer("awarded").notNull(),
+  outOf: integer("out_of").notNull(),
+  createdAt: timestamp("created_at").notNull().defaultNow(),
+});
+
+// Cross-subject study plans
+export const plans = pgTable("plans", {
+  id: uuid("id").defaultRandom().primaryKey(),
+  content: text("content").notNull(), // JSON {weeks:[{label, items:[{course, task, minutes}]}]}
+  createdAt: timestamp("created_at").notNull().defaultNow(),
+});
+
 // ── Auth.js adapter tables ──
 export const accounts = pgTable(
   "accounts",

@@ -9,13 +9,15 @@ const anthropic = new Anthropic();
 const MAX_DOC_CHARS = 45_000;
 
 export async function POST(req: Request) {
-  const { courseId, question, answer } = (await req.json()) as {
+  const { courseId, question, answer, imageBase64, imageType } = (await req.json()) as {
     courseId: string;
     question: string;
     answer: string;
+    imageBase64?: string; // photo of handwritten working
+    imageType?: string;
   };
-  if (!courseId || !question?.trim() || !answer?.trim()) {
-    return new Response("courseId, question and answer required", { status: 400 });
+  if (!courseId || !question?.trim() || (!answer?.trim() && !imageBase64)) {
+    return new Response("courseId, question and an answer (typed or photographed) required", { status: 400 });
   }
 
   const [course] = await db.select().from(courses).where(eq(courses.id, courseId));
@@ -82,7 +84,22 @@ export async function POST(req: Request) {
     messages: [
       {
         role: "user",
-        content: `QUESTION:\n${question.slice(0, 4000)}\n\nSTUDENT ANSWER:\n${answer.slice(0, 8000)}`,
+        content: [
+          ...(imageBase64
+            ? ([{
+                type: "image" as const,
+                source: {
+                  type: "base64" as const,
+                  media_type: (imageType ?? "image/jpeg") as "image/jpeg" | "image/png" | "image/webp",
+                  data: imageBase64,
+                },
+              }] as const)
+            : []),
+          {
+            type: "text" as const,
+            text: `QUESTION:\n${question.slice(0, 4000)}\n\nSTUDENT ANSWER${imageBase64 ? " (photographed working attached — read it carefully, including handwriting)" : ""}:\n${(answer ?? "").slice(0, 8000) || "(see photo)"}`,
+          },
+        ],
       },
     ],
   });

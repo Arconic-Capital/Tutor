@@ -22,6 +22,7 @@ export default async function ArtifactPage({
         </Link>
       </div>
       <ArtifactViewer
+        artifactId={artifact.id}
         type={artifact.type}
         title={artifact.title}
         content={artifact.content}

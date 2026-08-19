@@ -1,6 +1,6 @@
 "use client";
 
-import { use, useState } from "react";
+import { use, useRef, useState } from "react";
 import { renderMarkdown } from "@/lib/markdown";
 import "katex/dist/katex.min.css";
 
@@ -18,6 +18,17 @@ export default function MarkerPage({ params }: { params: Promise<{ courseId: str
   const [question, setQuestion] = useState("");
   const [answer, setAnswer] = useState("");
   const [busy, setBusy] = useState(false);
+  const [photo, setPhoto] = useState<{ data: string; type: string; name: string } | null>(null);
+  const fileRef = useRef<HTMLInputElement>(null);
+
+  function onPhoto(file: File) {
+    const reader = new FileReader();
+    reader.onload = () => {
+      const dataUrl = reader.result as string;
+      setPhoto({ data: dataUrl.split(",")[1], type: file.type, name: file.name });
+    };
+    reader.readAsDataURL(file);
+  }
   const [result, setResult] = useState<MarkResult | null>(null);
   const [showModel, setShowModel] = useState(false);
   const [error, setError] = useState("");
@@ -30,7 +41,13 @@ export default function MarkerPage({ params }: { params: Promise<{ courseId: str
       const res = await fetch("/api/marker", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ courseId, question, answer }),
+        body: JSON.stringify({
+          courseId,
+          question,
+          answer,
+          imageBase64: photo?.data,
+          imageType: photo?.type,
+        }),
       });
       if (!res.ok) throw new Error(await res.text());
       setResult(await res.json());
@@ -63,13 +80,30 @@ export default function MarkerPage({ params }: { params: Promise<{ courseId: str
           rows={8}
           className="rounded-xl border border-[#e3e0da] px-4 py-3 text-sm outline-none placeholder:text-[#b6b1aa] focus:border-[#2777c2]"
         />
+        <div className="flex items-center gap-3 self-end">
+          <input
+            ref={fileRef}
+            type="file"
+            accept="image/*"
+            capture="environment"
+            className="hidden"
+            onChange={(e) => e.target.files?.[0] && onPhoto(e.target.files[0])}
+          />
+          <button
+            type="button"
+            onClick={() => fileRef.current?.click()}
+            className="rounded-full border border-[#e3e0da] px-4 py-2 text-[13px] hover:bg-[#faf9f7]"
+          >
+            {photo ? `📷 ${photo.name.slice(0, 18)} ✓` : "📷 Photo of your working"}
+          </button>
         <button
           onClick={mark}
-          disabled={busy || !question.trim() || !answer.trim()}
+          disabled={busy || !question.trim() || (!answer.trim() && !photo)}
           className="self-end rounded-full bg-[#1a1815] px-6 py-2.5 text-sm font-semibold text-white disabled:opacity-40"
         >
           {busy ? "Marking…" : "Mark my answer"}
         </button>
+        </div>
         {busy && <p className="text-xs text-[#8a857e]">Checking against marking guidelines — 30-60 seconds…</p>}
         {error && <p className="text-xs text-[#a44a3c]">{error}</p>}
       </div>
