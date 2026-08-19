@@ -1,0 +1,203 @@
+<title>Sorted — Item Detail Mockups</title>
+<style>
+  :root {
+    --bg:#fff; --ink:#1a1815; --muted:#8a857e; --faint:#b6b1aa; --line:#eeece8; --hover:#faf9f7;
+    --blue:#2777c2; --blue-soft:#f0f6fc; --sky:#bfe0f5;
+    --amber:#8a5a12; --amber-soft:#fbf0dc; --red:#9c3b2e; --red-soft:#f9e7e4; --green:#2e6e4c; --green-soft:#e7f3ec;
+  }
+  * { box-sizing:border-box; }
+  body { background:var(--bg); color:var(--ink); margin:0; font:14.5px/1.6 -apple-system,"Helvetica Neue","Segoe UI",system-ui,sans-serif; -webkit-font-smoothing:antialiased; }
+  .wrap { max-width:1080px; margin:0 auto; padding:56px 24px 100px; }
+  h1.page { font-size:36px; font-weight:650; letter-spacing:-.03em; margin:0 0 8px; }
+  p.lead { color:var(--muted); max-width:64ch; margin:0; font-size:15.5px; }
+
+  section { margin-top:72px; }
+  .shead { display:flex; align-items:baseline; gap:12px; margin-bottom:4px; }
+  .num { font-size:12px; font-weight:600; color:var(--faint); }
+  .shead h2 { font-size:19px; font-weight:650; margin:0; letter-spacing:-.015em; }
+  .note { color:var(--muted); font-size:13px; margin:0 0 16px; }
+
+  .panel { max-width:560px; border:1px solid var(--line); border-radius:18px; overflow:hidden; box-shadow:0 14px 44px rgba(26,24,21,.08); }
+  .phead { padding:18px 22px 14px; border-bottom:1px solid var(--line); }
+  .kicker { font-size:11px; font-weight:650; text-transform:uppercase; letter-spacing:.06em; color:var(--faint); margin:0 0 4px; }
+  .ptitle { font-size:18px; font-weight:650; letter-spacing:-.015em; margin:0; }
+  .psub { color:var(--muted); font-size:13px; margin:3px 0 0; }
+  .pbody { padding:16px 22px 20px; }
+  .blocklbl { font-size:11px; font-weight:650; text-transform:uppercase; letter-spacing:.06em; color:var(--faint); margin:16px 0 7px; }
+  .blocklbl:first-child { margin-top:0; }
+  .pill { display:inline-block; border-radius:999px; padding:4px 11px; font-size:12px; font-weight:600; }
+  .pill.blue { background:var(--blue-soft); color:var(--blue); }
+  .pill.red { background:var(--red-soft); color:var(--red); }
+  .pill.amber { background:var(--amber-soft); color:var(--amber); }
+  .pill.green { background:var(--green-soft); color:var(--green); }
+  .pill.ghost { background:var(--hover); color:var(--muted); font-weight:500; }
+  .dot { display:flex; gap:9px; padding:5px 0; font-size:13.5px; color:#514b44; }
+  .dot i { font-style:normal; color:var(--blue); }
+  .dot.done { color:var(--faint); text-decoration:line-through; text-decoration-color:#d9d5ce; }
+  .dot.done i { color:#bcdcc9; }
+  .dot.now { font-weight:600; color:var(--ink); }
+  .row { display:flex; align-items:baseline; justify-content:space-between; gap:12px; padding:8px 0; border-top:1px solid var(--line); font-size:13.5px; }
+  .row:first-of-type { border-top:none; }
+  .row .m { color:var(--faint); font-size:12px; white-space:nowrap; }
+  .actions { display:flex; flex-wrap:wrap; gap:8px; margin-top:16px; }
+  .btn { border-radius:999px; padding:8px 16px; font-size:13px; font-weight:600; }
+  .btn.solid { background:var(--ink); color:#fff; }
+  .btn.soft { background:var(--blue-soft); color:var(--blue); }
+  .btn.line { border:1px solid var(--line); color:var(--ink); }
+  .why { background:var(--blue-soft); border-radius:12px; padding:11px 14px; font-size:13px; color:#1e5e8e; margin-top:4px; }
+  .warn { background:var(--amber-soft); border-radius:12px; padding:11px 14px; font-size:13px; color:var(--amber); }
+  .timeline { border-left:2px solid var(--line); margin:4px 0 0 7px; padding-left:16px; }
+  .tstep { position:relative; padding:6px 0; font-size:13.5px; }
+  .tstep::before { content:""; position:absolute; left:-21.5px; top:12px; width:9px; height:9px; border-radius:50%; background:#d9d5ce; }
+  .tstep.done::before { background:#7fb894; }
+  .tstep.next::before { background:var(--blue); box-shadow:0 0 0 4px var(--blue-soft); }
+  .tstep .when { color:var(--faint); font-size:11.5px; }
+  .tstep.done { color:var(--faint); }
+  .tstep.next { font-weight:600; }
+  .mini-week { display:grid; grid-template-columns:repeat(5,1fr); gap:6px; margin-top:6px; }
+  .mday { border:1px solid var(--line); border-radius:10px; padding:8px 9px; font-size:11.5px; }
+  .mday b { display:block; font-size:11px; color:var(--faint); font-weight:600; margin-bottom:3px; }
+  .mday.hot { border-color:var(--sky); background:var(--blue-soft); }
+  .conf { color:var(--faint); font-size:11.5px; margin-top:10px; }
+</style>
+
+<div class="wrap">
+  <h1 class="page">Sorted — the detail behind every item</h1>
+  <p class="lead">Nothing on the calendar is a dead rectangle. Tap anything and the full world behind it opens: where you're up to in the syllabus, what's being taught this week, the homework attached, the assessment looming behind it, and the exact next action. Four examples.</p>
+
+  <!-- 1 ── CLASS EVENT DETAIL -->
+  <section>
+    <div class="shead"><span class="num">01</span><h2>Tap a class → today's lesson in context</h2></div>
+    <p class="note">From the Today timeline or Week view. Answers: what are we learning, what was I meant to do, what's coming.</p>
+    <div class="panel">
+      <div class="phead">
+        <p class="kicker">Class · Today · Period 4</p>
+        <p class="ptitle">Chemistry</p>
+        <p class="psub">12:25–13:25 · Lab 3 · Mr Georgiou &nbsp;·&nbsp; <span class="pill amber">bring: lab coat</span></p>
+      </div>
+      <div class="pbody">
+        <p class="blocklbl">Where the class is up to</p>
+        <span class="pill blue">Module 7 · Organic Chemistry — week 3 of 6</span>
+        <div style="margin-top:10px">
+          <div class="dot done"><i>✓</i> Nomenclature of alkanes, alkenes and alkynes</div>
+          <div class="dot done"><i>✓</i> Physical properties and isomerism</div>
+          <div class="dot now"><i>›</i> This week: reaction pathways — addition, substitution, oxidation</div>
+          <div class="dot"><i>·</i> Next: alcohols — production and oxidation reactions</div>
+        </div>
+        <p class="conf">Inferred from the class program you uploaded + 3 lessons/cycle. Correct it once and everything re-syncs.</p>
+
+        <p class="blocklbl">Owed for this class</p>
+        <div class="row"><span>Ex 7.3 Q1–14 (reaction pathways worksheet)</span><span class="m">set Tue · <b style="color:var(--red)">due today</b></span></div>
+        <div class="row"><span>Prac write-up: esterification method summary</span><span class="m">due next lesson</span></div>
+
+        <p class="blocklbl">Hanging over this subject</p>
+        <div class="row"><span>Depth Study report · <b>15%</b></span><span class="m" style="color:var(--red);font-weight:600">9 days · prep on track (3/7 sessions)</span></div>
+
+        <div class="actions">
+          <span class="btn solid">Quiz me on reaction pathways</span>
+          <span class="btn soft">Flashcards for this week</span>
+          <span class="btn line">Ask the tutor</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 2 ── ASSESSMENT DETAIL -->
+  <section>
+    <div class="shead"><span class="num">02</span><h2>Tap an assessment → its whole prep world</h2></div>
+    <p class="note">From a countdown chip, the Month view, or Most pressing. The date becomes a plan with a pulse.</p>
+    <div class="panel">
+      <div class="phead">
+        <p class="kicker">Assessment · Chemistry</p>
+        <p class="ptitle">Depth Study report — 15%</p>
+        <p class="psub">Due Friday 28 August · 9 days away &nbsp;·&nbsp; <span class="pill green">on track</span></p>
+      </div>
+      <div class="pbody">
+        <p class="blocklbl">Your prep plan · 3 of 7 done</p>
+        <div class="timeline">
+          <div class="tstep done">Re-read brief, map marking rubric to sections <span class="when">· Thu, free period ✓</span></div>
+          <div class="tstep done">Consolidate underlying chemistry into 1 page <span class="when">· Thu evening ✓</span></div>
+          <div class="tstep done">Finalise tables & graphs — units, uncertainty <span class="when">· Fri evening ✓</span></div>
+          <div class="tstep next">Draft analysis & discussion — link trends to theory <span class="when">· tonight 19:00, 60 min</span></div>
+          <div class="tstep">Draft conclusion + evaluation of method <span class="when">· Sun evening</span></div>
+          <div class="tstep">Run full draft through the Marker, fix criteria gaps <span class="when">· Tue evening</span></div>
+          <div class="tstep">Final read + referencing check <span class="when">· Thu, day before</span></div>
+        </div>
+
+        <p class="blocklbl">What markers reward here</p>
+        <div class="dot"><i>›</i> Explicit link between every result and chemical theory <span class="pill ghost">from 2023–25 guidelines</span></div>
+        <div class="dot"><i>›</i> Validity / reliability / accuracy treated separately — the classic mark-loser</div>
+
+        <p class="blocklbl">Syllabus points this covers</p>
+        <div class="dot"><i>•</i> CH12-11 analyses and evaluates primary data</div>
+        <div class="dot"><i>•</i> CH12-7 communicates using appropriate scientific notation</div>
+
+        <div class="actions">
+          <span class="btn solid">Start tonight's session</span>
+          <span class="btn soft">Run draft through Marker</span>
+          <span class="btn line">Re-plan around my week</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 3 ── STUDY BLOCK DETAIL -->
+  <section>
+    <div class="shead"><span class="num">03</span><h2>Tap a study block → why now, and one button to start</h2></div>
+    <p class="note">Every blue block explains itself and deep-links into the tool that does the work.</p>
+    <div class="panel">
+      <div class="phead">
+        <p class="kicker">Study block · Tonight</p>
+        <p class="ptitle">Draft the analysis & discussion</p>
+        <p class="psub">19:00–20:00 · 60 min · session 4 of 7 for the Depth Study</p>
+      </div>
+      <div class="pbody">
+        <div class="why">
+          <b>Why this, why now:</b> the Depth Study is 15% and due in 9 days. Analysis is the highest-weighted rubric section, and your free period tomorrow is already taken by the Eco essay. Tonight is the last 60-minute slot before your Wednesday tutoring wipes the evening.
+        </div>
+        <p class="blocklbl">In this session</p>
+        <div class="dot"><i>1.</i> Pull your results table into the draft (10 min)</div>
+        <div class="dot"><i>2.</i> One paragraph per trend: observation → chemistry → implication (35 min)</div>
+        <div class="dot"><i>3.</i> Flag anomalies + validity notes for the evaluation section (15 min)</div>
+        <div class="actions">
+          <span class="btn solid">Start · open the tutor with your data</span>
+          <span class="btn line">Done ✓</span>
+          <span class="btn line">Move it</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 4 ── THIS WEEK IN A SUBJECT -->
+  <section>
+    <div class="shead"><span class="num">04</span><h2>Tap a subject → this week, lesson by lesson</h2></div>
+    <p class="note">The digest a good private tutor would give you every Monday: what's being taught, what's owed, what's smart to do before each lesson.</p>
+    <div class="panel" style="max-width:640px">
+      <div class="phead">
+        <p class="kicker">This week · Week A</p>
+        <p class="ptitle">Chemistry — Module 7, week 3 of 6</p>
+        <p class="psub">3 lessons · 1 homework due · Depth Study in 9 days</p>
+      </div>
+      <div class="pbody">
+        <div class="mini-week">
+          <div class="mday"><b>MON P1</b>Reaction pathways: addition vs substitution<br><span style="color:var(--faint)">worksheet 7.3 set</span></div>
+          <div class="mday hot"><b>TUE P5</b>Prac: bromine water + hexene<br><span style="color:var(--amber)">🎒 lab coat</span></div>
+          <div class="mday"><b>WED P4</b>Oxidation of alcohols — intro</div>
+          <div class="mday hot"><b>THU —</b>No lesson<br><span style="color:var(--blue)">free P3: Depth Study block</span></div>
+          <div class="mday"><b>FRI P2</b>Pathways consolidation + quiz<br><span style="color:var(--faint)">7.3 due</span></div>
+        </div>
+
+        <p class="blocklbl">Before Friday's quiz, know cold</p>
+        <div class="dot"><i>•</i> Markovnikov's rule and when it applies</div>
+        <div class="dot"><i>•</i> Distinguishing addition/substitution from reagents + conditions</div>
+        <div class="dot"><i>•</i> The bromine water test — observations for saturated vs unsaturated</div>
+
+        <div class="actions">
+          <span class="btn solid">10-min warm-up quiz before Friday</span>
+          <span class="btn soft">Cheat sheet: reaction pathways</span>
+        </div>
+        <p class="conf">Teaching inference: class program + pace so far · 84% confident · tap any lesson to correct it.</p>
+      </div>
+    </div>
+  </section>
+</div>

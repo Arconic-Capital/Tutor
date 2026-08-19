@@ -6,7 +6,9 @@ import { eq } from "drizzle-orm";
 import { getCurrentUserId } from "@/lib/auth/current-user";
 import Shell, { getMyCourses } from "@/components/shell";
 import AskBar from "@/components/ask-bar";
-import { eventsForDate, upcomingWork, freeGaps, weekCycleFor, packList } from "@/lib/schedule";
+import { eventsForDate, upcomingWork, freeGaps, weekCycleFor, packList, keyPoints } from "@/lib/schedule";
+import AssistantPanel from "@/components/assistant-panel";
+import { DoneButton, RemoveEventButton } from "@/components/item-actions";
 import PrepButton from "@/components/prep-button";
 
 const KIND_STYLES: Record<string, string> = {
@@ -84,21 +86,34 @@ export default async function Today() {
           <div className="mt-6">
             <p className="mb-2 text-[11px] font-semibold uppercase tracking-wide text-[#b6b1aa]">Today</p>
             <div className="flex flex-col gap-1.5">
-              {dayEvents.map((e) => (
-                <div key={e.id} className={`flex items-center gap-3 rounded-xl border px-4 py-2.5 ${KIND_STYLES[e.kind] ?? KIND_STYLES.other}`}>
-                  <span className="w-24 shrink-0 text-[12px] tabular-nums text-[#8a857e]">
-                    {e.startTime}{e.endTime && `–${e.endTime}`}
-                  </span>
-                  <span className="min-w-0 flex-1 truncate text-sm font-medium">
-                    {e.courseId ? (
-                      <Link href={`/subject/${e.courseId}`} className="hover:text-[#2777c2]">{e.title}</Link>
-                    ) : (
-                      e.title
+              {dayEvents.map((e) => {
+                const pts = keyPoints(e, work);
+                return (
+                  <div key={e.id} className={`rounded-xl border px-4 py-2.5 ${KIND_STYLES[e.kind] ?? KIND_STYLES.other}`}>
+                    <div className="flex items-center gap-3">
+                      <span className="w-24 shrink-0 text-[12px] tabular-nums text-[#8a857e]">
+                        {e.startTime}{e.endTime && `–${e.endTime}`}
+                      </span>
+                      <span className="min-w-0 flex-1 truncate text-sm font-medium">
+                        {e.courseId ? (
+                          <Link href={`/subject/${e.courseId}`} className="hover:text-[#2777c2]">{e.title}</Link>
+                        ) : (
+                          e.title
+                        )}
+                      </span>
+                      {e.location && <span className="shrink-0 text-xs text-[#b6b1aa]">{e.location}</span>}
+                      {e.kind === "study_block" && <RemoveEventButton id={e.id} />}
+                    </div>
+                    {pts.length > 0 && (
+                      <ul className="mt-1 flex flex-col gap-0.5 pl-[6.75rem]">
+                        {pts.map((pt, j) => (
+                          <li key={j} className="text-[12px] leading-snug text-[#8a857e]">· {pt}</li>
+                        ))}
+                      </ul>
                     )}
-                  </span>
-                  {e.location && <span className="shrink-0 text-xs text-[#b6b1aa]">{e.location}</span>}
-                </div>
-              ))}
+                  </div>
+                );
+              })}
             </div>
             {gaps.length > 0 && (
               <p className="mt-2.5 text-[12.5px] text-[#8a857e]">
@@ -137,6 +152,7 @@ export default async function Today() {
                     <span className={`text-xs tabular-nums ${(w.daysAway ?? 99) <= 7 ? "font-semibold text-[#9c3b2e]" : "text-[#b6b1aa]"}`}>
                       {w.daysAway === null ? "" : w.daysAway <= 0 ? "due now" : `${w.daysAway} days`}
                     </span>
+                    <DoneButton id={w.id} />
                     {w.courseId && (
                       <Link
                         href={`/subject/${w.courseId}/quiz`}
@@ -157,6 +173,7 @@ export default async function Today() {
           <AskBar subjects={my} />
         </div>
       </main>
+      <AssistantPanel />
     </div>
   );
 }

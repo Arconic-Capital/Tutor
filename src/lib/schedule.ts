@@ -125,3 +125,29 @@ export async function packList(forDate: Date): Promise<string[]> {
   }
   return [...items];
 }
+
+/** 2-4 key bullets under a scheduled item — the detail layer of the master schedule. */
+export function keyPoints(e: DayEvent, work: UpcomingWork[]): string[] {
+  const pts: string[] = [];
+  const courseWork = work.filter((w) => w.courseId && w.courseId === e.courseId);
+
+  if (e.kind === "class") {
+    const dueSoon = courseWork.filter((w) => (w.daysAway ?? 99) <= 2 && (w.kind === "homework" || w.kind === "exercise" || w.kind === "task"));
+    for (const d of dueSoon.slice(0, 1)) pts.push(`Due ${d.daysAway! <= 0 ? "today" : "tomorrow"}: ${d.title}`);
+    const assess = courseWork.find((w) => w.kind === "assessment" || w.kind === "exam");
+    if (assess) pts.push(`${assess.title}${assess.weighting ? ` (${assess.weighting}%)` : ""} — ${assess.daysAway}d away`);
+  }
+  if (e.kind === "study_block" && e.notes?.startsWith("Prep for:")) {
+    const target = e.notes.replace("Prep for: ", "");
+    const w = work.find((x) => x.title === target);
+    pts.push(`Why: ${target}${w?.daysAway != null ? ` due in ${w.daysAway}d` : ""}`);
+  }
+  if (e.kind === "sport") {
+    const next = work.find((w) => w.kind === "task" && /game|carnival|match/i.test(w.title));
+    if (next) pts.push(next.title);
+  }
+  if (e.bring) pts.push(`🎒 ${e.bring}`);
+  else if (e.kind === "sport") pts.push("🎒 sports gear");
+  else if (e.kind === "tutoring") pts.push("🎒 tutoring homework");
+  return pts.slice(0, 4);
+}

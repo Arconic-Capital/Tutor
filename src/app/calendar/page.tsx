@@ -1,6 +1,7 @@
 import Link from "next/link";
 import Shell from "@/components/shell";
-import { eventsForDate, upcomingWork, weekCycleFor, localIso, type DayEvent } from "@/lib/schedule";
+import { eventsForDate, upcomingWork, weekCycleFor, localIso, keyPoints, type DayEvent } from "@/lib/schedule";
+import AssistantPanel from "@/components/assistant-panel";
 
 const KIND_COLOR: Record<string, string> = {
   class: "bg-white border-[#e3e0da]",
@@ -105,12 +106,18 @@ export default async function CalendarPage({
                   </p>
                 ))}
                 <div className="flex flex-col gap-1">
-                  {perDay[i].map((e) => (
-                    <div key={e.id} className={`rounded-lg border px-2 py-1 ${KIND_COLOR[e.kind] ?? KIND_COLOR.other}`} title={`${e.title} ${e.startTime ?? ""}`}>
-                      <p className="truncate text-[11px] font-medium">{e.title}</p>
-                      <p className="text-[10px] tabular-nums text-[#8a857e]">{e.startTime}{e.endTime && `–${e.endTime}`}</p>
-                    </div>
-                  ))}
+                  {perDay[i].map((e) => {
+                    const pts = keyPoints(e, work).slice(0, 2);
+                    return (
+                      <div key={e.id} className={`rounded-lg border px-2 py-1 ${KIND_COLOR[e.kind] ?? KIND_COLOR.other}`} title={`${e.title} ${e.startTime ?? ""}`}>
+                        <p className="truncate text-[11px] font-medium">{e.title}</p>
+                        <p className="text-[10px] tabular-nums text-[#8a857e]">{e.startTime}{e.endTime && `–${e.endTime}`}</p>
+                        {pts.map((pt, j) => (
+                          <p key={j} className="mt-0.5 truncate text-[9.5px] leading-tight text-[#8a857e]" title={pt}>· {pt}</p>
+                        ))}
+                      </div>
+                    );
+                  })}
                   {perDay[i].length === 0 && <p className="py-4 text-center text-[11px] text-[#d9d5ce]">—</p>}
                 </div>
               </div>
@@ -118,6 +125,7 @@ export default async function CalendarPage({
           })}
         </div>
       </main>
+      <AssistantPanel />
     </div>
   );
 }
